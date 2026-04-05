@@ -5,11 +5,12 @@ import styles from "./Typography.module.scss";
 
 const variantMap: Record<TypographyVariant, ElementType> = {
   title: "h2",
-  desc: "p",
+  desc: "span",
   navigation: "span", 
   card_title: "h3",   
   card_button: "span",
-  card_date: "time"
+  card_date: "time",
+  card_desc:"p"
 };
 
 export const Typography = ({

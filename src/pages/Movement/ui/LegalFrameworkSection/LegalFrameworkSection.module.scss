@@ -1,182 +1,148 @@
- 
-  .content {
-    width: 100%; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-    text-align: center;
-  }
-  
-  .title {
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
 
-    margin: 0 auto 50px;
+.title {
+  margin: 0 auto 50px;
+}
+
+.cardsWrapper {
+  display: flex;
+  gap: 36px;
+  overflow-x: auto;
+  width: 1400px;
+  margin: 0;
+  padding: 0 10px 10px 20px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+    scroll-behavior: smooth;
   }
-  
-  .cardsWrapper {
+}
+
+.card {
+  width: 536px;
+  height: 234px;
+  background: var(--main-white);
+  border-radius: 20px;
+  box-shadow: 2px 6px 10px 5px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-shrink: 0;
+  gap: 8px;
+  .date {
     display: flex;
-    gap: 36px;
-    overflow-x: auto;
-    width: 1400px; 
-    margin: 0;  
-    padding: 0 10px 10px 20px;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    &::-webkit-scrollbar {
-      display: none; 
-      scroll-behavior: smooth;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .icon {
+    color: var(--black-400);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lawDesc {
+    margin-bottom: 24px;
+  }
+
+  .buttonWrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .downloadBtn {
+    align-self: flex-start;
+    background: var(--dark-blue);
+    color: var(--main-white);
+    padding: 17px 38px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background 0.3s;
+    margin-bottom: 15px;
+
+    &:hover {
+      background: #1e56d8;
     }
-  } 
-  
+  }
+}
+@media (max-width: 1024px) {
+  .legalFrameworkSection {
+    width: 100%;
+    padding: 40px 0;
+  }
+
+  .content {
+    margin: 0 24px;
+  }
+
+  .title {
+    margin-bottom: 40px;
+  }
+
+  .cardsWrapper {
+    width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+    gap: 28px;
+  }
+
   .card {
-    width: 536px; 
-    height: 234px;
-    background: var(--main-white);
-    border-radius: 20px;
-    box-shadow: 2px 6px 10px 5px rgba(0, 0, 0, 0.05);
-    padding: 24px;
-    display: flex; 
-    flex-direction: column;
-    justify-content: space-between;
-    flex-shrink: 0;
-    gap: 8px;
-    .date {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-  
-    .icon {
-      font-size: 20px; 
-      color: var(--black-400);
-      display: flex;
-      align-items: center;
-      justify-content: center; 
-      margin-left: 200px; 
-    }
-  
-    .lawTitle { 
-      font-weight: 600;
-      font-size: 24px; 
-      // color: #000000;
-    }
-  
-    .lawDesc {
-      // font-size: 20px; 
-      font-weight: 400;  
-      color: #333333;
-      margin-bottom: 24px;
-    }
-  
+    width: 480px;
+    height: auto;
+    padding: 22px;
+
+
+
     .downloadBtn {
-      align-self: flex-start;
-      background: #2E6CF4;
-      color: white;
-      padding: 17px 38px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 400;
-      font-size: 18px;
-      transition: background 0.3s; 
-      margin-left: 190px; 
-      margin-bottom: 15px;
-  
-      &:hover {
-        background: #1e56d8;
-      }
-    }
-  } 
-  @media (max-width: 1024px) {
-    .legalFrameworkSection {
-      width: 100%;
-      padding: 40px 0;
-    }
-  
-    .content {
-      margin: 0 24px;
-    }
-  
-    .title {
-      font-size: 34px;
-      margin-bottom: 40px;
-    }
-  
-    .cardsWrapper {
-      width: 100%;
-      padding-left: 16px;
-      padding-right: 16px;
-      gap: 28px;
-    }
-  
-    .card {
-      width: 480px;
-      height: auto;
-      padding: 22px;
-  
-      .icon {
-        margin-left: 150px;
-      }
-  
-      .lawTitle {
-        font-size: 22px;
-      }
-  
-      .lawDesc {
-        font-size: 18px;
-      }
-  
-      .downloadBtn {
-        margin-left: 140px;
-        font-size: 17px;
-        padding: 14px 30px;
-      }
+      padding: 14px 30px;
     }
   }
-  
-  @media (max-width: 480px) {
-    .legalFrameworkSection {
-      width: 360px;
-      padding: 30px 0;
-    }
-  
-    .content {
-      margin: 0 16px;
-    }
-  
-    .title {
-      font-size: 18px;
-      margin-bottom: 30px;
-    }
-  
-    .cardsWrapper {
-      width: 100%;
-      padding-left: 10px;
-      padding-right: 10px;
-      gap: 20px;
-    }
-  
-    .card {
-      width: 85%;
-      height: auto;
-      padding: 20px;
-      gap: 6px;
-  
-      .icon {
-        margin-left: 100px;
-      }
-  
-      .lawTitle {
-        font-size: 20px;
-      }
-  
-      .lawDesc {
-        font-size: 16px;
-      }
-  
-      .downloadBtn {
-        margin-left: 80px;
-        font-size: 16px;
-        padding: 12px 24px;
-      }
+}
+
+@media (max-width: 480px) {
+  .legalFrameworkSection {
+    width: 360px;
+    padding: 30px 0;
+  }
+
+  .content {
+    margin: 0 16px;
+  }
+
+  .title {
+    margin-bottom: 30px;
+  }
+
+  .cardsWrapper {
+    width: 100%;
+    justify-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    gap: 20px;
+  }
+
+  .card {
+    width: 85%;
+    height: auto;
+    padding: 20px;
+    gap: 6px;
+
+
+
+    .downloadBtn {
+      padding: 12px 24px;
     }
   }
+}

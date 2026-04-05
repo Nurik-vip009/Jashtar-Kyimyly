@@ -1,7 +1,7 @@
 import Navpanel from "@/widgets/Navpanel/Navpanel";
 import { LegalFrameworkSection } from "./LegalFrameworkSection/LegalFrameworkSection";
 import { Management } from "./Management/Management";
-// import { MovementSection } from "./MovementSection/MovementSection";
+import { MovementSection } from "./MovementSection/MovementSection";
 import { OurMissionSection } from "./OurMissionSection/OurMissionSection";
 import { useTranslation } from "react-i18next";
 
@@ -15,7 +15,7 @@ export function MovementPages() {
         link="/"
         text2={t("header.aboutTheMovement")}
       />
-      {/* <MovementSection /> */}
+      <MovementSection />
       <OurMissionSection />
       <LegalFrameworkSection />
       <Management />
