@@ -25,14 +25,14 @@ const FOOTER_NAV = [
 ];
 
 const CONTACTS = [
-	{ icon: <Instagram size={24} />, label: "Instagram", title: "Наши соцсети:" },
-	{ icon: <Phone size={24} />, label: "0700022042", title: "Контакты:" },
+	{ icon: <Instagram size={35} />, label: "Instagram", title: "Наши соцсети:" },
+	{ icon: <Phone size={35} />, label: "0700022042", title: "Контакты:" },
 	{
-		icon: <Mail size={24} />,
+		icon: <Mail size={35} />,
 		label: "jashtarkyimyly@gmail.com",
 		title: "Электронная почта:",
 	},
-	{ icon: <MapPin size={24} />, label: "Бишкек, кырг", title: "Адрес:" },
+	{ icon: <MapPin size={35} />, label: "Бишкек, кырг", title: "Адрес:" },
 ];
 
 export const Footer: FC = () => {
