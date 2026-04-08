@@ -9,6 +9,7 @@ const FOOTER_NAV = [
 	{
 		title: "О движении",
 		links: [
+			{ label: "Список курсов", url: "/course" },
 			{ label: "Направления деятельности", url: "/activities" },
 			{ label: "Проекты", url: "/projects" },
 			{ label: "Мероприятия", url: "/events" },
