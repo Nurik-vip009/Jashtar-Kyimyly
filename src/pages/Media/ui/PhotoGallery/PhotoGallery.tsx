@@ -1,9 +1,10 @@
-import { ArrowRightIcon, ChevronRight } from "lucide-react";
+import { ArrowRightIcon } from "lucide-react";
 import React from "react";
-import styles from "./PhotoGallery.module.scss";
-import { PhotoCard } from "../PhotoCard/PhotoCard";
 import { useNavigate } from "react-router-dom";
+import { PhotoCard } from "../PhotoCard/PhotoCard";
+import styles from "./PhotoGallery.module.scss";
 import { useTranslation } from "react-i18next";
+
 
 const mockImages = [
   {
@@ -48,30 +49,13 @@ export const PhotoGallery: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const handleGoHome = () => navigate("/");
-  const handleGoMedia = () => navigate("/media");
-  const handleGoPhotoGallery = () => navigate("/photoGallery");
-
   return (
     <div className={styles.container}>
-      <div className={styles.breadcrumbs}>
-        <span onClick={handleGoHome} className={styles.clickable}>
-          Главная
-        </span>
-        <ChevronRight size={14} />
-        <span onClick={handleGoMedia} className={styles.clickable}>
-          Медиа
-        </span>
-        <ChevronRight size={14} />
-        <span onClick={handleGoPhotoGallery} className={styles.clickable}>
-          Фотогалерея
-        </span>
-      </div>
-
-      <div className={styles.headerWrapper}>
+      <header className={styles.header}>
         <h1 className={styles.title}>
           {t("media.PhotoGallery") || "Фотогалерея"}
         </h1>
+
         <button
           onClick={() => navigate("/photoGallery")}
           className={styles.button}
@@ -81,10 +65,10 @@ export const PhotoGallery: React.FC = () => {
           </span>
           <ArrowRightIcon className={styles.buttonIcon} />
         </button>
-      </div>
+      </header>
 
       <main className={styles.gallery}>
-        {mockImages.map((item) => (
+        {mockImages.slice(0, 6).map((item) => (
           <PhotoCard
             key={item.id}
             id={item.id}

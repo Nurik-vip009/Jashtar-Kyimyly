@@ -1,77 +1,163 @@
-import type { FC } from "react";
-import styles from "./Footer.module.scss";
-import logo from "@/shared/assets/images/logo.png";
-import { MultiContainer, Typography } from "@/shared/ui";
-import { FOOTER_SECTIONS } from "@/shared/config/footer-nav";
+"use client";
+import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Instagram, Phone, MailCheck, MapPinHouse } from 'lucide-react';
-import { useTranslation } from "react-i18next";
+import {
+	Instagram,
+	Phone,
+	Mail,
+	MapPin,
+	Facebook,
+	Youtube,
+} from "lucide-react";
+import { getFooterData, IFooterData } from "../api";
+import scss from "./Footer.module.scss";
+
+const FOOTER_NAV = [
+	{
+		title: "О движении",
+		links: [
+			{ label: "Список курсов", url: "/course" },
+			{ label: "Направления деятельности", url: "/activities" },
+			{ label: "Проекты", url: "/projects" },
+			{ label: "Мероприятия", url: "/events" },
+			{ label: "Региональные отделения", url: "/branchnamepages" },
+		],
+	},
+	{
+		title: "Новости",
+		links: [
+			{ label: "Бренд материалы", url: "/main" },
+			{ label: "Медиа", url: "/media" },
+		],
+	},
+];
 
 export const Footer: FC = () => {
-  const { t, i18n } = useTranslation();
-  const changeLanguage = (lng: string) => i18n.changeLanguage(lng);
+	const [data, setData] = useState<IFooterData | null>(null);
 
-  return (
-    <footer className={styles.footer}>
-      <MultiContainer>
-        <div className={styles.footerContent}>
-          {/* Brand Info */}
-          <div className={styles.brandInfo}>
-            <img src={logo} alt={t('footer.logo')} className={styles.logo} />
-            <Typography variant="navigation" color="white" className={styles.copyright}>
-              © 2025 {t('footer.allRights')}
-            </Typography>
-            <Typography variant="navigation" color="white" className={styles.policyLinks}>
-              <a href="/privacy-policy">{t('footer.privacyPolicy')}</a> |{" "}
-              <a href="/terms-of-service">{t('footer.termsOfService')}</a> |{" "}
-              <a href="/cookies">{t('footer.cookiesSettings')}</a>
-            </Typography>
-          </div>
+	useEffect(() => {
+		getFooterData()
+			.then((res) => setData(res))
+			.catch((err) => console.error("Ошибка загрузки футера:", err));
+	}, []);
 
-          {/* Footer Navigation */}
-          <nav className={styles.footerNav}>
-            {FOOTER_SECTIONS.map((section, i) => (
-              <div key={i} className={styles.navSection}>
-                <ul className={styles.navList}>
-                  {section.links.map((link, j) => (
-                    <li key={j}>
-                      <Link to={link.url} className={styles.navLink}>
-                        <Typography variant="navigation" className={styles.text} color="white">
-                          {t(`footer.${link.titleKey}`)}
-                        </Typography>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </nav>
+	if (!data) return <footer className={scss.Footer}></footer>;
 
-          {/* Social & Contacts */}
-          <div className={styles.nav4}>
-            <div>
-              <button><Instagram /></button>
-              <button><Phone /></button>
-              <button><MailCheck /></button>
-              <button><MapPinHouse /></button>
-            </div>
-          </div>
+	const contactColumns = [
+		{
+			title: "Наши соцсети:",
+			links: [
+				{ label: "Instagram", url: data.instagram },
+				{ label: "Facebook", url: data.facebook },
+				{ label: "YouTube", url: data.youtube },
+			].filter((item) => item.url),
+		},
+		{
+			title: "Контакты:",
+			links: [{ label: data.phone_one, url: `tel:${data.phone_one}` }],
+		},
+		{
+			title: "Электронная почта:",
+			links: [{ label: data.email, url: `mailto:${data.email}` }],
+		},
+		{
+			title: "Адрес:",
+			links: [{ label: data.address, url: null }],
+		},
+	];
 
-          {/* Duplicate Brand Info for Mobile / Layout */}
-          <img src={logo} alt={t('footer.logo')} className={styles.logo1} />
-          <div className={styles.brandInfo1}>
-            <Typography variant="navigation" color="white" className={styles.copyright1}>
-              © 2025 {t('footer.allRights')}
-            </Typography>
-            <Typography variant="navigation" color="white" className={styles.policyLinks1}>
-              <a href="/privacy-policy">{t('footer.privacyPolicy')}</a> |{" "}
-              <a href="/terms-of-service">{t('footer.termsOfService')}</a> |{" "}
-              <a href="/cookies">{t('footer.cookiesSettings')}</a>
-            </Typography>
-          </div>
+	return (
+		<footer className={scss.Footer}>
+			<div className="container">
+				<div className={scss.content}>
+					<div className={scss.leftBox}>
+						<div className={scss.left}>
+							<div className={scss.mobileIcons}>
+								{data.instagram && (
+									<a href={data.instagram} target="_blank" rel="noreferrer">
+										<Instagram size={35} />
+									</a>
+								)}
 
-        </div>
-      </MultiContainer>
-    </footer>
-  );
+								{data.phone_one && (
+									<a href={`tel:${data.phone_one}`}>
+										<Phone size={35} />
+									</a>
+								)}
+
+								{data.email && (
+									<a href={`mailto:${data.email}`}>
+										<Mail size={35} />
+									</a>
+								)}
+
+								{data.address && (
+									<span className={scss.icon}>
+										<MapPin size={35} />
+									</span>
+								)}
+							</div>
+
+							{data.logo && (
+								<img
+									className={scss.img}
+									src={data.logo}
+									alt={data.site_name}
+								/>
+							)}
+
+							<h1 className={scss.description}>
+								{data.copyright_text} <br />
+								Privacy Policy | Terms of Service | Cookies Settings
+							</h1>
+						</div>
+					</div>
+
+					<div className={scss.rightBox}>
+						<div className={scss.right}>
+							{FOOTER_NAV.map((item, index) => (
+								<div key={index} className={scss.column}>
+									<h4>{item.title}</h4>
+									<ul className={scss.navList}>
+										{item.links.map((link, i) => (
+											<li className={scss.link} key={i}>
+												<Link to={link.url}>{link.label}</Link>
+											</li>
+										))}
+									</ul>
+								</div>
+							))}
+
+							{contactColumns.map(
+								(col, index) =>
+									col.links.length > 0 && (
+										<div
+											key={index}
+											className={`${scss.column} ${scss.desktopOnly}`}>
+											<h4>{col.title}</h4>
+											<ul className={scss.navList}>
+												{col.links.map((link, i) => (
+													<li className={scss.link} key={i}>
+														{link.url ? (
+															<a
+																href={link.url}
+																target="_blank"
+																rel="noreferrer">
+																{link.label}
+															</a>
+														) : (
+															<span>{link.label}</span>
+														)}
+													</li>
+												))}
+											</ul>
+										</div>
+									),
+							)}
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	);
 };
