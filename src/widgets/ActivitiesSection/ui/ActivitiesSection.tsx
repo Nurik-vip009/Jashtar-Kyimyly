@@ -3,7 +3,6 @@ import ActivityCard from '../ui/ActivityCard/ActivityCard';
 import img from '../../../shared/assets/images/friends.png';
 import styles from './ActivitiesSection.module.scss'; 
 import { useTranslation } from 'react-i18next';
-import { Typography } from '@/shared/ui';
 
 function ActivitiesSection() {
   const {t, i18n} = useTranslation()
@@ -18,7 +17,7 @@ function ActivitiesSection() {
 
   return (
     <section className={styles.activitiesSection}>
-      <Typography variant='title' weight='600' color='black' className={styles.sectionTitle}>{t('areaOfActivity.direction')}</Typography>
+      <h2 className={styles.sectionTitle}>{t('areaOfActivity.direction')}</h2>
       <div className={styles.cardsContainer}>
         {activitiesData.map((activity, index) => (
           <ActivityCard
