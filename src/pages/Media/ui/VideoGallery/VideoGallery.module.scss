@@ -1,122 +1,124 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 2rem;
 
-  @media (max-width: 1400px) {
-    max-width: 1200px;
-    padding: 1.5rem;
-  }
+    @media (max-width: 1400px) {
+        max-width: 1200px;
+        padding: 1.5rem;
+    }
 
-  @media (max-width: 768px) {
-    padding: 1rem;
-    gap: 1rem;
-  }
+    @media (max-width: 768px) {
+        padding: 1rem;
+        gap: 1rem;
+    }
 }
 
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: flex-start;
-  }
+    @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
 }
 
 .title {
-  font-family: var(--h-1-font-family);
-  font-weight: var(--h-1-font-weight);
-  font-size: var(--h-1-font-size);
-  color: var(--main-black-0);
-  margin: 0;
+    font-family: var(--h-1-font-family);
+    font-weight: var(--h-1-font-weight);
+    font-size: var(--h-1-font-size);
+    color: var(--main-black-0);
+    margin: 0;
 
-  @media (max-width: 768px) {
-    font-size: 2rem;
-  }
+    @media (max-width: 768px) {
+        font-size: 2rem;
+    }
 
-  @media (max-width: 480px) {
-    font-size: 1.75rem;
-  }
+    @media (max-width: 480px) {
+        font-size: 1.75rem;
+    }
 }
 
 .button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.625rem;
-  padding: 0.75rem 1.5rem;
-  background: var(--main-white);
-  border: 1px solid var(--dark-blue-0);
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--main-white);
+    border: 1px solid var(--dark-blue-0);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 48px;
 
-  &:hover {
-    background: var(--dark-blue-0);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(46, 108, 244, 0.3);
+    &:hover {
+        background: var(--dark-blue-0);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(46, 108, 244, 0.3);
 
-    .buttonText {
-      color: var(--main-white);
+        .buttonText {
+            color: var(--main-white);
+        }
+
+        .buttonIcon {
+            color: var(--main-white);
+            transform: translateX(4px);
+        }
     }
 
-    .buttonIcon {
-      color: var(--main-white);
-      transform: translateX(4px);
+    &:active {
+        transform: translateY(0);
     }
-  }
 
-  &:active {
-    transform: translateY(0);
-  }
-
-  @media (max-width: 768px) {
-    width: 100%;
-    padding: 0.875rem 1.5rem;
-  }
+    @media (max-width: 768px) {
+        width: 100%;
+        padding: 0.875rem 1.5rem;
+    }
 }
 
 .buttonText {
-  font-family: "Segoe UI", Helvetica, sans-serif;
-  font-weight: 400;
-  color: var(--dark-blue-0);
-  font-size: 1.125rem;
-  transition: color 0.3s ease;
+    font-family: 'Segoe UI', Helvetica, sans-serif;
+    font-weight: 400;
+    color: var(--dark-blue-0);
+    font-size: 1.125rem;
+    transition: color 0.3s ease;
 
-  @media (max-width: 480px) {
-    font-size: 1rem;
-  }
+    @media (max-width: 480px) {
+        font-size: 1rem;
+    }
 }
 
 .buttonIcon {
-  width: 24px;
-  height: 24px;
-  color: var(--dark-blue-0);
-  transition: all 0.3s ease;
+    width: 24px;
+    height: 24px;
+    color: var(--dark-blue-0);
+    transition: all 0.3s ease;
 
-  @media (max-width: 480px) {
-    width: 20px;
-    height: 20px;
-  }
+    @media (max-width: 480px) {
+        width: 20px;
+        height: 20px;
+    }
 }
 
 .gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  justify-content: center;
-
-  @media (max-width: 1288px) {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
-  }
+    justify-content: center;
+
+    @media (max-width: 1288px) {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    
 }

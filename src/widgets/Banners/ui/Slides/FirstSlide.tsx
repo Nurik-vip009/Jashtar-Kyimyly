@@ -1,8 +1,8 @@
 import funChildImage from "@/shared/assets/images/fun-child.jpg";
+import { SwiperSlide } from "swiper/react";
 import styles from "./../BannerSlider.module.scss";
 import { useNavigate } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa6";
-import { useState } from "react";
 
 interface FirstSlideProps {
   image: string;
@@ -47,24 +47,24 @@ const FirstSlide = ({
   console.log(getImageUrl(image));
 
   return (
-    <div className={styles.banner}>
-      <img
-        src={imgError ? funChildImage : getImageUrl(image)}
-        alt={title || "banner"}
-        className={styles.bannerBg}
-        onError={handleImageError}
-        loading="lazy"
-      />
-      <div className={styles.bannerOverlay}></div>
+    <SwiperSlide>
+      <div className={styles.banner}>
+        <img
+          src={image ? image : funChildImage}
+          alt="banner"
+          className={styles.bannerBg}
+        />
+        <div className={styles.bannerOverlay}></div>
 
-      <div className={styles.bannerContent}>
-        <h2>{title}</h2>
-        <p>{description}</p>
-        <button onClick={handleClick}>
-          {cta_text} <FaArrowRight />
-        </button>
+        <div className={styles.bannerContent}>
+          <h2>{title}</h2>
+          <p>{description}</p>
+          <button>
+            {cta_text} <FaArrowRight />
+          </button>
+        </div>
       </div>
-    </div>
+    </SwiperSlide>
   );
 };
 

@@ -1,7 +1,7 @@
 import { ArrowRightIcon, ArrowLeftIcon, ChevronRight } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
 import styles from "./VideoGallry.module.scss";
-import { VideoCard } from "@/pages/Media/ui/VideoCard/VideoCard";
+import { AlbumCard } from "@/shared/ui/Media/MediaCard";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 // import Navpanel from "@/widgets/Navpanel/Navpanel";
@@ -46,34 +46,20 @@ export function Video() {
         </span>
       </div>
 
-      <header className={styles.header}>
-        <h1 className={styles.title}>
-          {String(t("VideoLibrary.VideoLibrary"))}
-        </h1>
-
-        <div className={styles.buttons}>
-          <button
-            className={styles.button}
-            aria-label={String(t("VideoLibrary.selectDate"))}
-          >
-            <span className={styles.buttonText}>
-              {String(t("VideoLibrary.selectDate"))}
-            </span>
-            <ArrowRightIcon className={styles.buttonIcon} />
-          </button>
-
-          <button
-            className={styles.button}
-            onClick={handleGoBack}
-            aria-label={String(t("VideoLibrary.goBack"))}
-          >
-            <span className={styles.buttonText}>
-              {String(t("VideoLibrary.goBack"))}
-            </span>
-            <ArrowRightIcon className={styles.buttonIcon} />
-          </button>
-        </div>
-      </header>
+            {/* Заголовок */}
+            <header className={styles.header}>
+                <h1 className={styles.title}>{t('VideoLibrary.VideoLibrary')}</h1>
+                <div className={styles.buttons}>
+                    <button className={styles.button} aria-label="Посмотреть все фото">
+                        <span className={styles.buttonText}>{t('VideoLibrary.selectDate')}</span>
+                        <ArrowRightIcon className={styles.buttonIcon} />
+                    </button>
+                    <button  className={styles.button} onClick={()=>navigate("/media")}>
+                        <span className={styles.buttonText}>{t('VideoLibrary.goBack')}</span>
+                        <ArrowRightIcon className={styles.buttonIcon} />
+                    </button>
+                </div>
+            </header>
 
       <div className={styles.gallery}>
         {currentVideos?.map((video) => (
@@ -88,43 +74,37 @@ export function Video() {
         ))}
       </div>
 
-      {totalPages > 1 && (
-        <div className={styles.pagination}>
-          <button
-            className={styles.pageButton}
-            onClick={handlePrevPage}
-            disabled={currentPage === 1}
-            aria-label={String(t("VideoLibrary.previousPage"))}
-          >
-            <ArrowLeftIcon className={styles.pageIcon} />
-          </button>
+            {/* Пагинация */}
+            <div className={styles.pagination}>
+                <button
+                    className={styles.pageButton}
+                    onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+                    disabled={currentPage === 1}
+                >
+                    ← Назад
+                </button>
 
-          <div className={styles.pageNumbers}>
-            {Array.from({ length: totalPages }, (_, i) => (
-              <button
-                key={i + 1}
-                className={`${styles.pageNumber} ${
-                  currentPage === i + 1 ? styles.active : ""
-                }`}
-                onClick={() => handlePageChange(i + 1)}
-                aria-label={`Страница ${i + 1}`}
-                aria-current={currentPage === i + 1 ? "page" : undefined}
-              >
-                {i + 1}
-              </button>
-            ))}
-          </div>
+                <div className={styles.pageNumbers}>
+                    {Array.from({ length: totalPages }, (_, i) => (
+                        <button
+                            key={i + 1}
+                            className={`${styles.pageNumber} ${currentPage === i + 1 ? styles.active : ""
+                                }`}
+                            onClick={() => setCurrentPage(i + 1)}
+                        >
+                            {i + 1}
+                        </button>
+                    ))}
+                </div>
 
-          <button
-            className={styles.pageButton}
-            onClick={handleNextPage}
-            disabled={currentPage === totalPages}
-            aria-label={String(t("VideoLibrary.nextPage"))}
-          >
-            <ArrowRightIcon className={styles.pageIcon} />
-          </button>
+                <button
+                    className={styles.pageButton}
+                    onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+                    disabled={currentPage === totalPages}
+                >
+                    Вперёд →
+                </button>
+            </div>
         </div>
-      )}
-    </div>
-  );
+    );
 }

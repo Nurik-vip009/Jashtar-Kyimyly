@@ -65,7 +65,7 @@ export const Management = () => {
     <section className={styles.management}>
       <MultiContainer>
         <div className={styles.content}>
-          <Typography variant='title' color='black' weight='600' className={styles.title}>
+          <Typography variant='title' color='black' className={styles.title}>
             {/* {t('aboutTheMovement.management')} */}
             Руководство
           </Typography>

@@ -4,6 +4,8 @@ import { VideoCard } from "../VideoCard/VideoCard";
 import styles from "./VideoGallery.module.scss";
 import vidioIMG from "@/shared/assets/images/vidioimg.png";
 import { useNavigate } from "react-router-dom";
+import { useVideoStore } from "@/app/store/Media/video";
+// import { log } from 'console';
 import { useTranslation } from "react-i18next";
 import { useVideoStore } from "@/app/store/Media/video";
 
@@ -62,19 +64,19 @@ export const VideoGallery: React.FC = () => {
     fetchVideos();
   }, [fetchVideos]);
 
+  const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h1 className={styles.title}>{String(t("media.VideoLibrary"))}</h1>
+        <h1 className={styles.title}>{t("media.VideoLibrary")}</h1>
 
         <button
           className={styles.button}
           onClick={() => navigate("/videoGallery")}
           aria-label="Посмотреть все видео"
         >
-          <span className={styles.buttonText}>
-            {String(t("media.allVideo"))}
-          </span>
+          <span className={styles.buttonText}>{t("media.allVideo")}</span>
           <ArrowRightIcon className={styles.buttonIcon} />
         </button>
       </header>
@@ -85,14 +87,12 @@ export const VideoGallery: React.FC = () => {
             <VideoCard
               key={video.id}
               id={video.id}
-              date={video.date}
+              // date={video.date}
               title={video.title}
               videoUrl={video.video_url}
               thumbnailUrl={video.thumbnail}
             />
           ))
-        ) : (
-          <p>Нет видео</p>
         )}
       </main>
     </div>

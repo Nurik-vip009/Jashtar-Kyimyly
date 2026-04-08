@@ -3,8 +3,11 @@ import React, { useEffect } from "react";
 import styles from "./PhotoGallery.module.scss";
 import { PhotoCard } from "../PhotoCard/PhotoCard";
 import { useNavigate } from "react-router-dom";
+import { PhotoCard } from "../PhotoCard/PhotoCard";
+import styles from "./PhotoGallery.module.scss";
 import { useTranslation } from "react-i18next";
 import { useImagesStore } from "@/app/store/Media/images";
+
 
 const mockImages = [
   {
@@ -57,24 +60,11 @@ export const PhotoGallery: React.FC = () => {
   }, [fetchImages]);
   return (
     <div className={styles.container}>
-      <div className={styles.breadcrumbs}>
-        <span onClick={handleGoHome} className={styles.clickable}>
-          Главная
-        </span>
-        <ChevronRight size={14} />
-        <span onClick={handleGoMedia} className={styles.clickable}>
-          Медиа
-        </span>
-        <ChevronRight size={14} />
-        <span onClick={handleGoPhotoGallery} className={styles.clickable}>
-          Фотогалерея
-        </span>
-      </div>
-
-      <div className={styles.headerWrapper}>
+      <header className={styles.header}>
         <h1 className={styles.title}>
           {t("media.PhotoGallery") || "Фотогалерея"}
         </h1>
+
         <button
           onClick={() => navigate("/photoGallery")}
           className={styles.button}
@@ -84,7 +74,7 @@ export const PhotoGallery: React.FC = () => {
           </span>
           <ArrowRightIcon className={styles.buttonIcon} />
         </button>
-      </div>
+      </header>
 
       <main className={styles.gallery}>
         {imagesCards?.map((item) => (
