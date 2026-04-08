@@ -3,6 +3,7 @@ import { SwiperSlide } from "swiper/react";
 import styles from "./../BannerSlider.module.scss";
 import { useNavigate } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa6";
+import { useState } from "react";
 
 interface FirstSlideProps {
   image: string;
