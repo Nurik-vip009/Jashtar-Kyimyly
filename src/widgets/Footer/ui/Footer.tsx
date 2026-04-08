@@ -1,9 +1,16 @@
 "use client";
-import type { FC } from "react";
-import scss from "./Footer.module.scss";
+import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import footerImg from "@/shared/assets/images/logo.png";
-import { Instagram, Phone, Mail, MapPin } from "lucide-react";
+import {
+	Instagram,
+	Phone,
+	Mail,
+	MapPin,
+	Facebook,
+	Youtube,
+} from "lucide-react";
+import { getFooterData, IFooterData } from "../api";
+import scss from "./Footer.module.scss";
 
 const FOOTER_NAV = [
 	{
@@ -25,18 +32,40 @@ const FOOTER_NAV = [
 	},
 ];
 
-const CONTACTS = [
-	{ icon: <Instagram size={35} />, label: "Instagram", title: "Наши соцсети:" },
-	{ icon: <Phone size={35} />, label: "0700022042", title: "Контакты:" },
-	{
-		icon: <Mail size={35} />,
-		label: "jashtarkyimyly@gmail.com",
-		title: "Электронная почта:",
-	},
-	{ icon: <MapPin size={35} />, label: "Бишкек, кырг", title: "Адрес:" },
-];
-
 export const Footer: FC = () => {
+	const [data, setData] = useState<IFooterData | null>(null);
+
+	useEffect(() => {
+		getFooterData()
+			.then((res) => setData(res))
+			.catch((err) => console.error("Ошибка загрузки футера:", err));
+	}, []);
+
+	if (!data) return <footer className={scss.Footer}></footer>;
+
+	const contactColumns = [
+		{
+			title: "Наши соцсети:",
+			links: [
+				{ label: "Instagram", url: data.instagram },
+				{ label: "Facebook", url: data.facebook },
+				{ label: "YouTube", url: data.youtube },
+			].filter((item) => item.url),
+		},
+		{
+			title: "Контакты:",
+			links: [{ label: data.phone_one, url: `tel:${data.phone_one}` }],
+		},
+		{
+			title: "Электронная почта:",
+			links: [{ label: data.email, url: `mailto:${data.email}` }],
+		},
+		{
+			title: "Адрес:",
+			links: [{ label: data.address, url: null }],
+		},
+	];
+
 	return (
 		<footer className={scss.Footer}>
 			<div className="container">
@@ -44,17 +73,41 @@ export const Footer: FC = () => {
 					<div className={scss.leftBox}>
 						<div className={scss.left}>
 							<div className={scss.mobileIcons}>
-								{CONTACTS.map((c, i) => (
-									<span key={i} className={scss.icon}>
-										{c.icon}
+								{data.instagram && (
+									<a href={data.instagram} target="_blank" rel="noreferrer">
+										<Instagram size={35} />
+									</a>
+								)}
+
+								{data.phone_one && (
+									<a href={`tel:${data.phone_one}`}>
+										<Phone size={35} />
+									</a>
+								)}
+
+								{data.email && (
+									<a href={`mailto:${data.email}`}>
+										<Mail size={35} />
+									</a>
+								)}
+
+								{data.address && (
+									<span className={scss.icon}>
+										<MapPin size={35} />
 									</span>
-								))}
+								)}
 							</div>
 
-							<img className={scss.img} src={footerImg} alt="logo" />
+							{data.logo && (
+								<img
+									className={scss.img}
+									src={data.logo}
+									alt={data.site_name}
+								/>
+							)}
 
 							<h1 className={scss.description}>
-								© 2025 All rights reserved. <br />
+								{data.copyright_text} <br />
 								Privacy Policy | Terms of Service | Cookies Settings
 							</h1>
 						</div>
@@ -75,18 +128,32 @@ export const Footer: FC = () => {
 								</div>
 							))}
 
-							{CONTACTS.map((item, index) => (
-								<div
-									key={index}
-									className={`${scss.column} ${scss.desktopOnly}`}>
-									<h4>{item.title}</h4>
-									<ul className={scss.navList}>
-										<li className={scss.link}>
-											<span>{item.label}</span>
-										</li>
-									</ul>
-								</div>
-							))}
+							{contactColumns.map(
+								(col, index) =>
+									col.links.length > 0 && (
+										<div
+											key={index}
+											className={`${scss.column} ${scss.desktopOnly}`}>
+											<h4>{col.title}</h4>
+											<ul className={scss.navList}>
+												{col.links.map((link, i) => (
+													<li className={scss.link} key={i}>
+														{link.url ? (
+															<a
+																href={link.url}
+																target="_blank"
+																rel="noreferrer">
+																{link.label}
+															</a>
+														) : (
+															<span>{link.label}</span>
+														)}
+													</li>
+												))}
+											</ul>
+										</div>
+									),
+							)}
 						</div>
 					</div>
 				</div>
