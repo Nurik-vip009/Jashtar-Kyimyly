@@ -1,21 +1,20 @@
 .navpanel {
-  display: flex;
-  justify-content: start;
-  padding: 36px 0px 36px 0px;
-  align-items: center;
-  gap: 4px;
-  @media (max-width: 1024px) {
-    padding: 36px 20px 36px 20px;
-  }
-  @media (max-width: 480px) {
-    display: none;
-  }
-  p {
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: 400;
-    &:last-child {
-      color: #2e6cf4;
-    }
-  }
+	display: flex;
+	justify-content: start;
+	// padding: 36px 0px 36px 0px;
+	padding-block: clamp(20px, 2vw, 35px);
+	align-items: center;
+	gap: 4px;
+
+	@media (max-width: 480px) {
+		display: none;
+	}
+	p {
+		cursor: pointer;
+		font-size: clamp(12px, 3vw, 18px);
+		font-weight: 400;
+		&:last-child {
+			color: #2e6cf4;
+		}
+	}
 }
