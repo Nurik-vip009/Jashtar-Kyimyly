@@ -4,7 +4,7 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import styles from "./BannerSlider.module.scss";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { BannerStore } from "@/app/store/banner/banner";
 import FirstSlide from "./Slides/FirstSlide";
 
@@ -97,7 +97,7 @@ export default function BannerSlider() {
         {banner.map((banner) => (
           <SwiperSlide key={banner.id}>
             <FirstSlide
-              image={banner.images?.[0]?.image || "not found"}
+              image={banner.image?.[0] || "not found"}
               title={banner.title || ""}
               description={banner.description || ""}
               cta_text={banner.cta_text || ""}

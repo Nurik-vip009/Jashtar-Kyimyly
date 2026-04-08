@@ -4,8 +4,6 @@ import { VideoCard } from "../VideoCard/VideoCard";
 import styles from "./VideoGallery.module.scss";
 import vidioIMG from "@/shared/assets/images/vidioimg.png";
 import { useNavigate } from "react-router-dom";
-import { useVideoStore } from "@/app/store/Media/video";
-// import { log } from 'console';
 import { useTranslation } from "react-i18next";
 import { useVideoStore } from "@/app/store/Media/video";
 
@@ -64,8 +62,7 @@ export const VideoGallery: React.FC = () => {
     fetchVideos();
   }, [fetchVideos]);
 
-  const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -82,7 +79,7 @@ export const VideoGallery: React.FC = () => {
       </header>
 
       <main className={styles.gallery}>
-        {videos.length > 0 ? (
+        {videos.length > 0 ? 
           videos.map((video) => (
             <VideoCard
               key={video.id}
