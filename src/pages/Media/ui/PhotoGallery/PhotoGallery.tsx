@@ -1,9 +1,12 @@
-import { ArrowRightIcon } from "lucide-react";
-import React from "react";
+import { ArrowRightIcon, ChevronRight } from "lucide-react";
+import React, { useEffect } from "react";
+import styles from "./PhotoGallery.module.scss";
+import { PhotoCard } from "../PhotoCard/PhotoCard";
 import { useNavigate } from "react-router-dom";
 import { PhotoCard } from "../PhotoCard/PhotoCard";
 import styles from "./PhotoGallery.module.scss";
 import { useTranslation } from "react-i18next";
+import { useImagesStore } from "@/app/store/Media/images";
 
 
 const mockImages = [
@@ -48,7 +51,13 @@ const mockImages = [
 export const PhotoGallery: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-
+  const handleGoHome = () => navigate("/");
+  const handleGoMedia = () => navigate("/media");
+  const handleGoPhotoGallery = () => navigate("/photoGallery");
+  const { fetchImages, imagesCards } = useImagesStore();
+  useEffect(() => {
+    fetchImages();
+  }, [fetchImages]);
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -68,13 +77,13 @@ export const PhotoGallery: React.FC = () => {
       </header>
 
       <main className={styles.gallery}>
-        {mockImages.slice(0, 6).map((item) => (
+        {imagesCards?.map((item) => (
           <PhotoCard
             key={item.id}
             id={item.id}
             date={item.date}
             title={item.title}
-            imageUrl={item.image}
+            cover_image={item.cover_image}
           />
         ))}
       </main>

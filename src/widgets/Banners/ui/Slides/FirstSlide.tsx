@@ -20,6 +20,32 @@ const FirstSlide = ({
   cta_link,
 }: FirstSlideProps) => {
   const navigate = useNavigate();
+  const [imgError, setImgError] = useState(false);
+
+  const handleClick = () => {
+    if (cta_link) {
+      if (cta_link.startsWith("http")) {
+        window.open(cta_link, "_blank");
+      } else {
+        navigate(cta_link);
+      }
+    }
+  };
+  // Полный URL изображения (если приходит относительный)
+  const getImageUrl = (url: string) => {
+    if (!url) return funChildImage;
+    if (url.startsWith("http")) return decodeURIComponent(url); // <-- кодируем URL
+    return encodeURI(
+      `http://157.230.235.0${url.startsWith("/") ? "" : "/"}${url}`
+    );
+  };
+
+  const handleImageError = () => {
+    console.error("Failed to load image:", image);
+    setImgError(true);
+  };
+  console.log(getImageUrl(image));
+
   return (
     <SwiperSlide>
       <div className={styles.banner}>

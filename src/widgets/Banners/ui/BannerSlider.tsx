@@ -46,8 +46,44 @@ export default function BannerSlider() {
     fetchBanners();
   }, [fetchBanners]);
 
-  // if (loading) return <div className="loader"></div>;
-  // if (error) return <div>Ошибка: {error}</div>;
+  // Мемоизация пропсов для Swiper (опционально)
+  const paginationConfig = useCallback(
+    () => ({
+      clickable: true,
+      dynamicBullets: false,
+    }),
+    []
+  );
+
+  // Состояния загрузки
+  if (loading) {
+    return (
+      <div className={styles.loaderContainer}>
+        <div className={styles.loader}></div>
+      </div>
+    );
+  }
+
+  // Состояния ошибки
+  if (error) {
+    return (
+      <div className={styles.error}>
+        <p>Ошибка: {error}</p>
+        <button onClick={() => fetchBanners()} className={styles.retryButton}>
+          Попробовать снова
+        </button>
+      </div>
+    );
+  }
+
+  // Нет баннеров
+  if (!banners || banners.length === 0) {
+    return (
+      <div className={styles.noBanners}>
+        <p>Нет доступных баннеров</p>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.bannerWrapper}>
@@ -61,11 +97,11 @@ export default function BannerSlider() {
         {banner.map((banner) => (
           <SwiperSlide key={banner.id}>
             <FirstSlide
-              image={banner.image}
-              title={banner.title}
-              description={banner.description}
-              cta_text={banner.cta_text}
-              cta_link={banner.cta_link}
+              image={banner.images?.[0]?.image || "not found"}
+              title={banner.title || ""}
+              description={banner.description || ""}
+              cta_text={banner.cta_text || ""}
+              cta_link={banner.cta_link || ""}
             />
           </SwiperSlide>
         ))}
