@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 // import Navpanel from "@/widgets/Navpanel/Navpanel";
 import { useVideoStore } from "@/app/store/Media/video";
+import { VideoCard } from "../Media/ui/VideoCard/VideoCard";
 const ITEMS_PER_PAGE = 9;
 
 export function Video() {
@@ -46,20 +47,24 @@ export function Video() {
         </span>
       </div>
 
-            {/* Заголовок */}
-            <header className={styles.header}>
-                <h1 className={styles.title}>{t('VideoLibrary.VideoLibrary')}</h1>
-                <div className={styles.buttons}>
-                    <button className={styles.button} aria-label="Посмотреть все фото">
-                        <span className={styles.buttonText}>{t('VideoLibrary.selectDate')}</span>
-                        <ArrowRightIcon className={styles.buttonIcon} />
-                    </button>
-                    <button  className={styles.button} onClick={()=>navigate("/media")}>
-                        <span className={styles.buttonText}>{t('VideoLibrary.goBack')}</span>
-                        <ArrowRightIcon className={styles.buttonIcon} />
-                    </button>
-                </div>
-            </header>
+      {/* Заголовок */}
+      <header className={styles.header}>
+        <h1 className={styles.title}>{t("VideoLibrary.VideoLibrary")}</h1>
+        <div className={styles.buttons}>
+          <button className={styles.button} aria-label="Посмотреть все фото">
+            <span className={styles.buttonText}>
+              {t("VideoLibrary.selectDate")}
+            </span>
+            <ArrowRightIcon className={styles.buttonIcon} />
+          </button>
+          <button className={styles.button} onClick={() => navigate("/media")}>
+            <span className={styles.buttonText}>
+              {t("VideoLibrary.goBack")}
+            </span>
+            <ArrowRightIcon className={styles.buttonIcon} />
+          </button>
+        </div>
+      </header>
 
       <div className={styles.gallery}>
         {currentVideos?.map((video) => (
@@ -74,37 +79,38 @@ export function Video() {
         ))}
       </div>
 
-            {/* Пагинация */}
-            <div className={styles.pagination}>
-                <button
-                    className={styles.pageButton}
-                    onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-                    disabled={currentPage === 1}
-                >
-                    ← Назад
-                </button>
+      {/* Пагинация */}
+      <div className={styles.pagination}>
+        <button
+          className={styles.pageButton}
+          onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          ← Назад
+        </button>
 
-                <div className={styles.pageNumbers}>
-                    {Array.from({ length: totalPages }, (_, i) => (
-                        <button
-                            key={i + 1}
-                            className={`${styles.pageNumber} ${currentPage === i + 1 ? styles.active : ""
-                                }`}
-                            onClick={() => setCurrentPage(i + 1)}
-                        >
-                            {i + 1}
-                        </button>
-                    ))}
-                </div>
-
-                <button
-                    className={styles.pageButton}
-                    onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
-                    disabled={currentPage === totalPages}
-                >
-                    Вперёд →
-                </button>
-            </div>
+        <div className={styles.pageNumbers}>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i + 1}
+              className={`${styles.pageNumber} ${
+                currentPage === i + 1 ? styles.active : ""
+              }`}
+              onClick={() => setCurrentPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
         </div>
-    );
+
+        <button
+          className={styles.pageButton}
+          onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+          disabled={currentPage === totalPages}
+        >
+          Вперёд →
+        </button>
+      </div>
+    </div>
+  );
 }

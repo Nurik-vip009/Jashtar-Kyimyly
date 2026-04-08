@@ -3,11 +3,8 @@ import React, { useEffect } from "react";
 import styles from "./PhotoGallery.module.scss";
 import { PhotoCard } from "../PhotoCard/PhotoCard";
 import { useNavigate } from "react-router-dom";
-import { PhotoCard } from "../PhotoCard/PhotoCard";
-import styles from "./PhotoGallery.module.scss";
 import { useTranslation } from "react-i18next";
 import { useImagesStore } from "@/app/store/Media/images";
-
 
 const mockImages = [
   {

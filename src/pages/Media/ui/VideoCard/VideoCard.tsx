@@ -3,7 +3,6 @@ import { CalendarIcon } from "lucide-react";
 import Plyr from "plyr-react";
 import "plyr-react/plyr.css";
 import styles from "./VideoCard.module.scss";
-import { log } from "console";
 
 interface VideoCardProps {
   id: number;

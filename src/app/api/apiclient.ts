@@ -3,7 +3,7 @@ import axios from "axios";
 const language = localStorage.getItem("lang") || "ru";
 
 export const axiosInstance = axios.create({
-  baseURL: "https://jashtar-kyimyly-production.up.railway.app/api/",
+  baseURL: "http://157.230.235/api/",
   headers: {
     "Content-Type": "application/json",
     Accept: "*/*",
