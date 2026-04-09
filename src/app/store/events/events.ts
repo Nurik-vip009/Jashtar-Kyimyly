@@ -1,50 +1,55 @@
+// src/app/store/events/events.ts
 import { create } from "zustand";
 import { axiosInstance } from "@/app/api/apiclient";
-import { AxiosError } from "axios";
 
-// Структура одного события из API
-export interface EventItem {
+export interface Events {
   id: number;
   title: string;
-  image: string; // В API это строка, а не массив объектов
+  description: string;
   date: string;
-  short_text: string;
-}
-
-// Структура всего ответа страницы
-export interface EventsPageData {
-  id: number;
-  upcoming_title: string;
-  upcoming_events: EventItem[];
-  archive_title: string;
-  archive_events: EventItem[];
+  event_status: string;
+  images: { id: number; image: string; event: number }[];
 }
 
 interface EventsState {
-  eventsPage: EventsPageData | null;
+  event: Events[]; // Список всех событий
   loading: boolean;
   error: string | null;
-  fetchEvents: () => Promise<void>;
+  fetchevents: () => Promise<void>;
 }
 
 export const useEventsStore = create<EventsState>((set) => ({
-  eventsPage: null,
+  event: [],
   loading: false,
   error: null,
 
-  fetchEvents: async () => {
+  fetchevents: async () => {
     set({ loading: true, error: null });
     try {
-      // Путь должен соответствовать вашему API
-      const response = await axiosInstance.get<EventsPageData[]>("event/events-page/");
-      
-      // Поскольку API возвращает массив с одним объектом конфигурации страницы:
-      set({ eventsPage: response.data[0] }); 
+      // Запрос к вашему новому API
+      const response = await axiosInstance.get<any[]>("/event/events-page/");
+      const data = response.data[0];
+      console.log(data)
+
+      // Объединяем предстоящие и архивные события в один массив для фильтрации
+      const allEvents = [
+        ...data.upcoming_events.map((e: any) => ({
+          ...e,
+          description: e.short_text,
+          event_status: "upcoming",
+          images: [{ id: e.id, image: e.image, event: e.id }]
+        })),
+        ...data.archive_events.map((e: any) => ({
+          ...e,
+          description: e.short_text,
+          event_status: "past",
+          images: [{ id: e.id, image: e.image, event: e.id }]
+        }))
+      ];
+
+      set({ event: allEvents, loading: false });
     } catch (err) {
-      const error = err as AxiosError<{ message: string }>;
-      set({ error: error.response?.data?.message || "Ошибка при загрузке данных" });
-    } finally {
-      set({ loading: false });
+      set({ error: "Ошибка загрузки", loading: false });
     }
   },
 }));

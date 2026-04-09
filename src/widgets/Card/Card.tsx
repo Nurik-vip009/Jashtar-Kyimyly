@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./style.module.scss";
 import defaultImg from "../../shared/assets/images/photo.png";
 import { useNavigate } from "react-router-dom";
+import { Typography } from "@/shared/ui";
+
 interface Images {
   id: number;
   event: number;
@@ -36,11 +38,11 @@ function Card({ item, onClick }: CardProps) {
       ))}
       <div className={styles.Footercard}>
         <div className={styles.date}>
-          <p>{formattedDate}</p>
+          <Typography variant='card_date' weight='400' color='black' >{formattedDate}</Typography>
         </div>
         <div className={styles.title}>
-          <h3>{item.title.slice(0, 22)}...</h3>
-          <p>{item.description.slice(0, 50)}...</p>
+          <Typography variant='card_title' weight='500' color='black' >{item.title.slice(0, 22)}...</Typography>
+          <Typography variant='card_desc' weight='400' color='black' >{item.description.slice(0, 50)}...</Typography>
         </div>
       </div>
     </div>

@@ -1,62 +1,74 @@
 .UpcomingEvents {
-  .title {
-    font-size: clamp(20px, 3.6vw, 40px);
-    text-align: center;
-    padding-bottom: 30px;
-    font-weight: 500;
+  padding-block: 50px;
 
-    @media (max-width: 480px) {
-      padding-block: 30px;
-    }
+  .title {
+    text-align: center;
+    padding-bottom: 40px;
   }
+
   .content {
-    .swiper {
-      width: 100%;
-    }
     .swiperWrapper {
       position: relative;
       display: flex;
       align-items: center;
-      justify-content: space-between;
       width: 100%;
+
+      :global(.swiper) {
+        flex: 1;
+        width: 100%;
+        min-width: 0;
+        padding: 10px;
+      }
+
       .customArrow {
         position: absolute;
+        top: 40%;
+        transform: translateY(-50%);
         background-color: #fff;
         border: 1px solid #2e6cf4;
         color: #2e6cf4;
         border-radius: 50%;
-        width: 40px;
-        height: 40px;
+        width: 44px;
+        height: 44px;
         cursor: pointer;
-        font-size: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
         transition: all 0.3s ease;
         z-index: 10;
-        @media (max-width: 480px) {
-          width: 30px !important;
-          height: 30px !important;
-        }
-        &:hover {
-          transform: scale(1.1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+        &:hover:not(:disabled) {
+          background-color: #2e6cf4;
+          color: #fff;
+          transform: translateY(-50%) scale(1.1);
         }
 
         &:disabled {
           opacity: 0.3;
           cursor: not-allowed;
+          border-color: #ccc;
+          color: #ccc;
+        }
+
+        @media (max-width: 480px) {
+          width: 32px;
+          height: 32px;
+          display: none;
         }
       }
-      .customArrow:first-of-type {
-        left: -20px;
-        @media (max-width: 480px) {
-          left: -10px;
+
+      .prevBtn {
+        left: -22px;
+        @media (max-width: 1200px) {
+          left: 0;
         }
       }
-      .customArrow:last-of-type {
-        right: -20px;
-        @media (max-width: 480px) {
-          right: -10px;
+
+      .nextBtn {
+        right: -22px;
+        @media (max-width: 1200px) {
+          right: 0;
         }
       }
     }

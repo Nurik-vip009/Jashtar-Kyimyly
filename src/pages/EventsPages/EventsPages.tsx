@@ -1,5 +1,5 @@
 // EventsArchive.tsx
-import { eventsStore } from "@/app/store/events/events";
+// import { eventsStore } from "@/app/store/events/events";
 import img from "../../shared/assets/images/photo.png";
 import scss from "./EventsPages.module.scss";
 import Card from "@/widgets/Card/Card";
@@ -12,7 +12,7 @@ export function EventsPages() {
   const { t, i18n } = useTranslation();
   const changeLanguage = (lng: string) => i18n.changeLanguage(lng);
   const [count, setCount] = useState(3);
-  const { event, loading, error, fetchevents } = eventsStore();
+  // const { event, loading, error, fetchevents } = eventsStore();
   const data = [
     {
       id: 1,

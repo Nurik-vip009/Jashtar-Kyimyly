@@ -1,122 +1,134 @@
-import Navpanel from "@/widgets/Navpanel/Navpanel";
-import React, { useEffect } from "react";
-import styles from "./style.module.scss";
-import img1 from "../../shared/assets/images/image (1).png";
-import img2 from "../../shared/assets/images/image (2).png";
-import img3 from "../../shared/assets/icons/time-line.svg";
-import img4 from "../../shared/assets/icons/calendar-line.svg";
-import img5 from "../../shared/assets/icons/map-pin-line.svg";
-import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
-import { EventDetailStore } from "@/app/store/events/eventsDetail";
-import { useLanguageStore } from "@/app/store/languageStore";
-
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import Navpanel from '@/widgets/Navpanel/Navpanel';
+import { useEventDetailStore } from '@/app/store/eventDetail/eventsDetails';
+import { useLanguageStore } from '@/app/store/languageStore';
+import styles from './style.module.scss';
+import img3 from '../../shared/assets/icons/time-line.svg';
+import img4 from '../../shared/assets/icons/calendar-line.svg';
+import img5 from '../../shared/assets/icons/map-pin-line.svg';
+import { Typography } from '@/shared/ui';
 function NameOfTheEvent() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { id } = useParams();
-  const data = {
-    id: 1,
-    title: "Название мероприятия",
-    description:
-      "Безусловно, высокотехнологичная концепция общественного уклада предопределяет высокую востребованность системы массового участия. Значимость этих проблем настолько очевидна, что синтетическое тестирование предопределяет высокую востребованность экспериментов, поражающих по своей масштабности и грандиозности. В своём стремлении повысить качество жизни, они забывают, что сложившаяся структура организации выявляет срочную потребность прогресса профессионального сообщества. ",
-    event_status: "2",
-    date: new Date(),
-    images: [
-      {
-        id: 1,
-        event: 1,
-        title: "Photo",
-        image: "https://www.gem-center.ru/data/image/NGA/Conf2025-440x300.jpg",
-      },
-      {
-        id: 2,
-        event: 1,
-        title: "Photo",
-        image: "https://www.gem-center.ru/data/image/NGA/Conf2025-440x300.jpg",
-      },
-      {
-        id: 3,
-        event: 1,
-        title: "Photo",
-        image: "https://www.gem-center.ru/data/image/NGA/Conf2025-440x300.jpg",
-      },
-      {
-        id: 4,
-        event: 1,
-        title: "Photo",
-        image: "https://www.gem-center.ru/data/image/NGA/Conf2025-440x300.jpg",
-      },
-    ],
-  };
-  // const { eventDetail, fetchEventDetail, loading, error } = EventDetailStore();
+
+  const { eventDetail, fetchEventDetail, loading, error, clearDetail } =
+    useEventDetailStore();
   const { currentLang } = useLanguageStore();
-  // useEffect(() => {
-  //   if (id) {
-  //     fetchEventDetail(Number(id));
-  //   }
-  // }, [id, currentLang]);
 
-  // if (loading) return <div className="loader"></div>;
-  // if (error) return <p>Ошибка: {error}</p>;
-  // if (!eventDetail) return <p>Нет данных</p>;
-  // время
-  const time = data.date.toLocaleTimeString("ru-RU", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  useEffect(() => {
+    if (id) {
+      fetchEventDetail(Number(id));
+    }
 
-  // дата
-  const fullDate = data.date.toLocaleDateString("ru-RU", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
+    return () => {
+      if (clearDetail) clearDetail();
+    };
+  }, [id, currentLang, fetchEventDetail, clearDetail]);
+
+  if (loading)
+    return (
+      <div className='container'>
+        <div className={styles.loaderWrapper}>
+          <div className='loader'></div>
+        </div>
+      </div>
+    );
+
+  if (error)
+    return (
+      <div className='container'>
+        <p className={styles.errorMessage}>
+          {t('errors.fetchError') || 'Ошибка при загрузке данных'}: {error}
+        </p>
+      </div>
+    );
+
+  if (!eventDetail) return null;
+
+  const eventDate = new Date(eventDetail.date);
+  const formattedDate = eventDate.toLocaleDateString(
+    currentLang === 'ru' ? 'ru-RU' : 'ky-KG',
+    {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+    },
+  );
+
+  const images = [];
+  if (eventDetail.detail_image) images.push(eventDetail.detail_image);
+
   return (
     <div className={`${styles.wrapper} container`}>
       <Navpanel
-        text={t("events.home")}
-        link="/"
-        text2={t("events.events")}
-        link2="/events"
-        text3={data.title}
+        text={t('events.home')}
+        link='/'
+        text2={t('events.events')}
+        link2='/events'
+        text3={eventDetail.title}
       />
 
       <div className={styles.event}>
-        <h1 className={styles.title}>{data.title}</h1>
+        <Typography
+          variant='title'
+          weight='600'
+          color='black'
+          className={styles.title}
+        >
+          {eventDetail.title}
+        </Typography>
 
-        <p className={styles.description}>{data.description}</p>
+        <Typography
+          variant='desc'
+          weight='400'
+          color='black'
+          className={styles.description}
+        >
+          {eventDetail.full_text || eventDetail.short_text}
+        </Typography>
 
         <div className={styles.imagesBlock}>
-          {data.images.length > 0 && (
-            <div className={styles.imagesRow}>
-              <div className={styles.imagesGroup}>
-                <img src={data.images[0]?.image} alt={data.title} />
-                <div className={styles.images}>
-                  <img src={data.images[1]?.image} alt={data.title} />
-                  <img src={data.images[2]?.image} alt={data.title} />
-                </div>
-              </div>
-
-              <div className={styles.imagesFooter}>
-                <img src={data.images[3]?.image} alt={data.title} />
-                <img src={data.images[3]?.image} alt={data.title} />
-              </div>
-            </div>
-          )}
+          <div
+            className={`${styles.imagesGrid} ${images.length === 1 ? styles.singleImage : ''}`}
+          >
+            {images.map((img, index) => (
+              <img key={index} src={img} alt={eventDetail.title} />
+            ))}
+          </div>
         </div>
 
         <div className={styles.details}>
-          <h1 className={styles.detailsTitle}>{t("events.detailevent")}</h1>
-          <span className={styles.detail}>
-            <img src={img3} alt="" /> {time}
-          </span>
-          <span className={styles.detail}>
-            <img src={img4} alt="" /> {fullDate}{" "}
-          </span>
-          <span className={styles.detail}>
-            <img src={img5} alt="" />
-            Улица, Дом
-          </span>
+          <Typography
+            variant='title'
+            weight='600'
+            color='black'
+            className={styles.detailsTitle}
+          >
+            {t('events.detailevent')}
+          </Typography>
+
+          <div className={styles.detailList}>
+            <span className={styles.detail}>
+              <img src={img3} alt='Time' />
+              {eventDetail.date.includes('T')
+                ? eventDate.toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })
+                : '10:00'}
+            </span>
+
+            <span className={styles.detail}>
+              <img src={img4} alt='Calendar' /> {formattedDate}
+            </span>
+
+            <span className={styles.detail}>
+              <img src={img5} alt='Location' />
+              {t('events.location') || 'г. Бишкек'}
+            </span>
+          </div>
         </div>
       </div>
     </div>

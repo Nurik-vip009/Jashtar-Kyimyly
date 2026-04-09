@@ -8,29 +8,29 @@ import { Navigation } from "swiper/modules";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { useEventsStore } from "@/store/eventsStore"; // Путь к вашему стору
+import { useEventsStore, Events } from "@/app/store/events/events"; 
 
 const UpcomingEvents: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   
-  // Достаем данные и метод из Zustand
-  const { eventsPage, loading, fetchEvents } = useEventsStore();
+
+  const { event, loading, fetchevents } = useEventsStore();
 
   useEffect(() => {
-    fetchEvents();
-  }, [fetchEvents]);
+    if (typeof fetchevents === 'function') {
+      fetchevents();
+    }
+  }, [fetchevents]);
 
   if (loading) return <div>Загрузка...</div>;
-  
-  // Берем только предстоящие события
-  const upcomingEvents = eventsPage?.upcoming_events || [];
+
+  const upcomingEvents = event.filter((item: Events) => item.event_status === "upcoming");
 
   return (
     <div className={`${styles.UpcomingEvents}`}>
-      {/* Используем заголовок из API или перевод по умолчанию */}
       <h1 className={styles.title}>
-        {eventsPage?.upcoming_title || t("events.upcomingEvents")}
+        {t("events.upcomingEvents")}
       </h1>
       
       <div className={`${styles.content} container`}>
@@ -51,17 +51,11 @@ const UpcomingEvents: React.FC = () => {
               768: { slidesPerView: 3 },
             }}
           >
-            {upcomingEvents.map((event) => (
-              <SwiperSlide key={event.id} className={styles.slide}>
+            {upcomingEvents.map((item: Events) => ( 
+              <SwiperSlide key={item.id}>
                 <Card
-                  onClick={() => navigate(`/events/${event.id}`)}
-                  // Важно: проверьте, чтобы компонент Card принимал объект EventItem
-                  // Возможно, внутри Card придется заменить .description на .short_text
-                  item={{
-                    ...event,
-                    description: event.short_text, // маппинг полей если Card ждет description
-                    images: [{ image: event.image }] // адаптация под старую структуру картинок
-                  }}
+                  onClick={() => navigate(`/events/${item.id}`)}
+                  item={item} 
                 />
               </SwiperSlide>
             ))}

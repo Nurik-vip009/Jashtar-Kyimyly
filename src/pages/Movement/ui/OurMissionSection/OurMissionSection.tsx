@@ -1,7 +1,7 @@
-// import { useEffect } from 'react';
+
 import styles from "./OurMissionSection.module.scss";
 import { MultiContainer, Typography } from "@/shared/ui";
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import Image4 from "@/shared/assets/images/movementsection2.svg";
 import Image5 from "@/shared/assets/images/movementsection3.svg";
 import Image6 from "@/shared/assets/images/movementsection4.svg";
@@ -10,7 +10,6 @@ import Image8 from "@/shared/assets/images/movementsection6.svg";
 import { useAboutGoalStore } from "@/app/store/about-movement/ourmissionsection";
 import { useLanguageStore } from "@/app/store/languageStore";
 import { useEffect } from "react";
-// import { useAboutGoalStore } from '@/app/store/about-movement/ourmissionsection';
 // import { useLanguageStore } from '@/app/store/languageStore';
 
 const data = {
