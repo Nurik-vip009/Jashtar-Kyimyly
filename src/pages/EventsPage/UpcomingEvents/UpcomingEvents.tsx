@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -8,118 +8,37 @@ import { Navigation } from "swiper/modules";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useEventsStore } from "@/store/eventsStore"; // Путь к вашему стору
 
 const UpcomingEvents: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  
+  // Достаем данные и метод из Zustand
+  const { eventsPage, loading, fetchEvents } = useEventsStore();
 
-  const data = [
-    {
-      id: 1,
-      title: "Название мероприятия",
-      description: "Описание мероприятия",
-      event_status: "2",
-      date: Date(),
-      images: [
-        {
-          id: 1,
-          event: 1,
-          title: "Photo",
-          image:
-            "https://www.gem-center.ru/data/image/NGA/Conf2025-440x300.jpg",
-        },
-      ],
-    },
-    {
-      id: 2,
-      title: "Название мероприятия",
-      description: "Описание мероприятия",
-      event_status: "2",
-      date: Date(),
-      images: [
-        {
-          id: 2,
-          event: 2,
-          title: "Photo",
-          image:
-            "https://www.gem-center.ru/data/image/NGA/Conf2025-440x300.jpg",
-        },
-      ],
-    },
-    {
-      id: 3,
-      title: "Название мероприятия",
-      description: "Описание мероприятия",
-      event_status: "2",
-      date: Date(),
-      images: [
-        {
-          id: 2,
-          event: 2,
-          title: "Photo",
-          image:
-            "https://www.gem-center.ru/data/image/NGA/Conf2025-440x300.jpg",
-        },
-      ],
-    },
-    {
-      id: 4,
-      title: "Название мероприятия",
-      description: "Описание мероприятия",
-      event_status: "2",
-      date: Date(),
-      images: [
-        {
-          id: 2,
-          event: 2,
-          title: "Photo",
-          image:
-            "https://www.gem-center.ru/data/image/NGA/Conf2025-440x300.jpg",
-        },
-      ],
-    },
-    {
-      id: 5,
-      title: "Название мероприятия",
-      description: "Описание мероприятия",
-      event_status: "2",
-      date: Date(),
-      images: [
-        {
-          id: 2,
-          event: 2,
-          title: "Photo",
-          image:
-            "https://www.gem-center.ru/data/image/NGA/Conf2025-440x300.jpg",
-        },
-      ],
-    },
-    {
-      id: 2,
-      title: "Название мероприятия",
-      description: "Описание мероприятия",
-      event_status: "2",
-      date: Date(),
-      images: [
-        {
-          id: 2,
-          event: 2,
-          title: "Photo",
-          image:
-            "https://www.gem-center.ru/data/image/NGA/Conf2025-440x300.jpg",
-        },
-      ],
-    },
-  ];
+  useEffect(() => {
+    fetchEvents();
+  }, [fetchEvents]);
+
+  if (loading) return <div>Загрузка...</div>;
+  
+  // Берем только предстоящие события
+  const upcomingEvents = eventsPage?.upcoming_events || [];
 
   return (
     <div className={`${styles.UpcomingEvents}`}>
-      <h1 className={styles.title}>{t("events.upcomingEvents")}</h1>
+      {/* Используем заголовок из API или перевод по умолчанию */}
+      <h1 className={styles.title}>
+        {eventsPage?.upcoming_title || t("events.upcomingEvents")}
+      </h1>
+      
       <div className={`${styles.content} container`}>
         <div className={styles.swiperWrapper}>
           <button className={`prev ${styles.customArrow}`}>
             <ChevronLeft />
           </button>
+          
           <Swiper
             modules={[Navigation]}
             navigation={{
@@ -132,15 +51,22 @@ const UpcomingEvents: React.FC = () => {
               768: { slidesPerView: 3 },
             }}
           >
-            {data.map((event) => (
+            {upcomingEvents.map((event) => (
               <SwiperSlide key={event.id} className={styles.slide}>
                 <Card
                   onClick={() => navigate(`/events/${event.id}`)}
-                  item={event}
+                  // Важно: проверьте, чтобы компонент Card принимал объект EventItem
+                  // Возможно, внутри Card придется заменить .description на .short_text
+                  item={{
+                    ...event,
+                    description: event.short_text, // маппинг полей если Card ждет description
+                    images: [{ image: event.image }] // адаптация под старую структуру картинок
+                  }}
                 />
               </SwiperSlide>
             ))}
           </Swiper>
+          
           <button className={`next ${styles.customArrow}`}>
             <ChevronRight />
           </button>

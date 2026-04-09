@@ -2,53 +2,49 @@ import { create } from "zustand";
 import { axiosInstance } from "@/app/api/apiclient";
 import { AxiosError } from "axios";
 
-interface Images {
-    id: number;
-    event: number;
-    image: string;
+// Структура одного события из API
+export interface EventItem {
+  id: number;
+  title: string;
+  image: string; // В API это строка, а не массив объектов
+  date: string;
+  short_text: string;
 }
 
-export interface Events {
-    id: number;
-    title: string;
-    description: string;
-    date: string;
-    event_status: string;
-    images: Images[];
+// Структура всего ответа страницы
+export interface EventsPageData {
+  id: number;
+  upcoming_title: string;
+  upcoming_events: EventItem[];
+  archive_title: string;
+  archive_events: EventItem[];
 }
 
 interface EventsState {
-    event: Events[]; 
-    loading: boolean;   
-    error: string | null;
-    fetchevents: () => Promise<void>; // было fetchevents, исправил на fetchEvents
+  eventsPage: EventsPageData | null;
+  loading: boolean;
+  error: string | null;
+  fetchEvents: () => Promise<void>;
 }
 
-export const eventsStore = create<EventsState>((set) => ({
-    event: [],
-    loading: false,
-    error: null,
+export const useEventsStore = create<EventsState>((set) => ({
+  eventsPage: null,
+  loading: false,
+  error: null,
 
-    fetchevents: async () => {
-        set({ loading: true, error: null });
-        try {
-            const response = await axiosInstance.get<Events[]>("content/events/");
-
-            const transformedData = response.data.map((item) => ({
-                id: item.id,
-                title: item.title,
-                description: item.description,
-                date: item.date,
-                event_status: item.event_status,
-                images: item.images,
-            }));
-
-            set({ event: transformedData });
-        } catch (err) {
-            const error = err as AxiosError<{ message: string }>;
-            set({ error: error.response?.data?.message || "Something went wrong" });
-        } finally {
-            set({ loading: false });
-        }
-    },
+  fetchEvents: async () => {
+    set({ loading: true, error: null });
+    try {
+      // Путь должен соответствовать вашему API
+      const response = await axiosInstance.get<EventsPageData[]>("event/events-page/");
+      
+      // Поскольку API возвращает массив с одним объектом конфигурации страницы:
+      set({ eventsPage: response.data[0] }); 
+    } catch (err) {
+      const error = err as AxiosError<{ message: string }>;
+      set({ error: error.response?.data?.message || "Ошибка при загрузке данных" });
+    } finally {
+      set({ loading: false });
+    }
+  },
 }));
