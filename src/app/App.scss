@@ -1,66 +1,85 @@
 .app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 
-  .routing {
-    flex-grow: 1;
-  }
+	.routing {
+		flex-grow: 1;
+	}
 }
-
 :root {
-  --dark-blue-0: rgba(46, 108, 244, 1);
-  --dark-blue-700: rgba(109, 153, 248, 1);
-  --h-1-font-family: "Inter", Helvetica;
-  --h-1-font-size: 40px;
-  --h-1-font-style: normal;
-  --h-1-font-weight: 600;
-  --h-1-letter-spacing: 0px;
-  --h-1-line-height: normal;
-  --main-black-0: rgba(17, 17, 17, 1);
-  --main-black-400: rgba(160, 160, 160, 1);
-  --main-white: rgba(255, 255, 255, 1);
+	--dark-blue-0: rgba(46, 108, 244, 1);
+	--dark-blue-700: rgba(109, 153, 248, 1);
+	--h-1-font-family: "Inter", Helvetica;
+	--h-1-font-size: 40px;
+	--h-1-font-style: normal;
+	--h-1-font-weight: 600;
+	--h-1-letter-spacing: 0px;
+	--h-1-line-height: normal;
+	--main-black-0: rgba(17, 17, 17, 1);
+	--main-black-400: rgba(160, 160, 160, 1);
+	--main-white: rgba(255, 255, 255, 1);
 }
-/* HTML: <div class="loader"></div> */
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+.app {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+
+	.routing {
+		flex-grow: 1;
+	}
+}
+
 .loader {
-  width: 50px;
-  aspect-ratio: 1;
-  display: grid;
-  margin: auto;
-  border-radius: 50%;
-  background:
-    linear-gradient(
-        0deg,
-        rgba(28, 124, 213, 0.5) 30%,
-        #0970ac00 0 70%,
-        rgb(17, 108, 194) 0
-      )
-      50%/8% 100%,
-    linear-gradient(
-        90deg,
-        rgba(19, 127, 205, 0.25) 30%,
-        #0000 0 70%,
-        rgba(28, 153, 198, 0.75) 0
-      )
-      50%/100% 8%;
-  background-repeat: no-repeat;
-  animation: l23 1s infinite steps(12);
+	width: 50px;
+	aspect-ratio: 1;
+	display: grid;
+	margin: auto;
+	border-radius: 50%;
+	background:
+		linear-gradient(
+				0deg,
+				rgba(28, 124, 213, 0.5) 30%,
+				#0970ac00 0 70%,
+				rgb(17, 108, 194) 0
+			)
+			50%/8% 100%,
+		linear-gradient(
+				90deg,
+				rgba(19, 127, 205, 0.25) 30%,
+				#0000 0 70%,
+				rgba(28, 153, 198, 0.75) 0
+			)
+			50%/100% 8%;
+	background-repeat: no-repeat;
+	animation: l23 1s infinite steps(12);
 }
+
 .loader::before,
 .loader::after {
-  content: "";
-  grid-area: 1/1;
-  border-radius: 50%;
-  background: inherit;
-  opacity: 0.915;
-  transform: rotate(30deg);
+	content: "";
+	grid-area: 1/1;
+	border-radius: 50%;
+	background: inherit;
+	opacity: 0.915;
+	transform: rotate(30deg);
 }
+
 .loader::after {
-  opacity: 0.83;
-  transform: rotate(60deg);
+	opacity: 0.83;
+	transform: rotate(60deg);
 }
+
 @keyframes l23 {
-  100% {
-    transform: rotate(1turn);
-  }
+	100% {
+		transform: rotate(1turn);
+	}
 }

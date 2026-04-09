@@ -3,7 +3,7 @@ import { CalendarIcon } from "lucide-react";
 import Plyr from "plyr-react";
 import "plyr-react/plyr.css";
 import styles from "./VideoCard.module.scss";
-// import { log } from "console";
+import { log } from "console";
 
 interface VideoCardProps {
   id: number;
@@ -19,16 +19,8 @@ export const VideoCard: React.FC<VideoCardProps> = ({
   thumbnailUrl,
   videoUrl,
 }) => {
-  const getEmbedUrl = (url: string) => {
-    const regExp =
-      /(?:youtube\.com\/(?:watch\?v=|live\/)|youtu\.be\/)([^&?\n]+)/;
-    const match = url.match(regExp);
-    return match ? `https://www.youtube.com/embed/${match[1]}` : "";
-  };
-  const embedUrl = getEmbedUrl(videoUrl);
-  if (!embedUrl) {
-    return <div className={styles.card}>Неверная ссылка на видео</div>;
-  }
+  console.log(videoUrl);
+
   return (
     <article className={styles.card}>
       <div className={styles.videoWrapper}>
@@ -37,10 +29,26 @@ export const VideoCard: React.FC<VideoCardProps> = ({
             type: "video",
             sources: [
               {
-                src: getEmbedUrl(videoUrl),
-                provider: "youtube",
+                src: videoUrl,
+                provider: videoUrl.includes("youtube.com") || videoUrl.includes("youtu.be")
+                  ? "youtube"
+                  : "html5",
               },
             ],
+            poster: thumbnailUrl,
+          }}
+          options={{
+            controls: [
+              "play-large",
+              "play",
+              "progress",
+              "current-time",
+              "mute",
+              "volume",
+              "settings",
+              "fullscreen",
+            ],
+            ratio: "16:9",
           }}
         />
       </div>
