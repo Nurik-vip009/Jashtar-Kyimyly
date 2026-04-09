@@ -1,4 +1,13 @@
-.content {
+/* ============================================ */
+/* 1. СЕКЦИЯ LEGAL FRAMEWORK (горизонтальный скролл) */
+/* ============================================ */
+
+.legalFrameworkSection {
+  width: 100%;
+  padding: 80px 0;
+}
+
+.legalFrameworkSection .content {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -7,7 +16,7 @@
   text-align: center;
 }
 
-.title {
+.legalFrameworkSection .title {
   margin: 0 auto 50px;
 }
 
@@ -15,20 +24,23 @@
   display: flex;
   gap: 36px;
   overflow-x: auto;
-  width: 1400px;
-  margin: 0;
-  padding: 0 10px 10px 20px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px 10px 20px;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  &::-webkit-scrollbar {
-    display: none;
-    scroll-behavior: smooth;
-  }
+  scroll-snap-type: x mandatory;
+}
+
+.cardsWrapper::-webkit-scrollbar {
+  display: none;
 }
 
 .card {
-  width: 536px;
-  height: 234px;
+  flex: 0 0 536px;
+  height: auto;
+  min-height: 234px;
   background: var(--main-white);
   border-radius: 20px;
   box-shadow: 2px 6px 10px 5px rgba(0, 0, 0, 0.05);
@@ -36,113 +48,604 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  flex-shrink: 0;
   gap: 8px;
-  .date {
-    display: flex;
+  scroll-snap-align: start;
+}
+
+.card .date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.card .icon {
+  color: var(--black-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card .lawDesc {
+  margin-bottom: 24px;
+  flex: 1;
+}
+
+.card .buttonWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.card .downloadBtn {
+  align-self: flex-start;
+  background: var(--dark-blue);
+  color: var(--main-white);
+  padding: 17px 38px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.3s;
+  margin-bottom: 15px;
+  white-space: nowrap;
+}
+
+.card .downloadBtn:hover {
+  background: #1e56d8;
+}
+
+/* ============================================ */
+/* 2. СЕКЦИЯ MANAGEMENT (Swiper) */
+/* ============================================ */
+
+.management {
+  padding: 80px 0;
+}
+
+.management .swiperContainer {
+  width: 100%;
+  position: relative;
+}
+
+.management .swiperContainer:active {
+  cursor: grabbing;
+}
+
+.management .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.management .title {
+  margin-bottom: 60px;
+}
+
+.personCard {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+  aspect-ratio: 312 / 489;
+}
+
+.personCard:hover {
+  transform: scale(1.03);
+}
+
+.personImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.personInfo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 24px 16px;
+  text-align: center;
+  z-index: 2;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.shadowOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.966) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 1;
+}
+
+.personName,
+.personPosition {
+  z-index: 7;
+  text-align: center;
+  font-weight: 400;
+  line-height: 120%;
+  color: var(--main-white);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.personPosition {
+  margin-top: 16px;
+}
+
+/* ============================================ */
+/* 3. СЕКЦИЯ CONTAINER (изображения 2fr/1fr) */
+/* ============================================ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  gap: 24px;
+}
+
+.container__header {
+  flex-direction: column;
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.container .title,
+.container .description {
+  text-align: center;
+}
+
+.ImageWrapper {
+  display: grid;
+  max-height: 477px;
+  width: 100%;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+.bigImage,
+.smallImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+/* ============================================ */
+/* 4. СЕКЦИЯ OUR MISSION (галерея) */
+/* ============================================ */
+
+.ourMissionSection {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 80px 0;
+  color: #111111;
+}
+
+.ourMissionSection .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.ourMissionSection .paragraph {
+  margin-top: 16px;
+  margin-bottom: 40px;
+  max-width: 800px;
+}
+
+.divider {
+  width: 100%;
+  max-width: 1320px;
+  margin: 10px auto;
+  border: none;
+  border-top: 3px dashed #2e6cf4;
+  opacity: 0.9;
+}
+
+.imageGrid {
+  margin-top: 40px;
+  width: 100%;
+  max-width: 1320px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.galleryTop {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 24px;
+  height: 320px;
+}
+
+.galleryBottom {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 24px;
+  height: 260px;
+}
+
+.imageGrid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+
+.galleryTop .image2 {
+  grid-row: span 1;
+  height: 100%;
+  min-height: 280px;
+}
+
+/* ============================================ */
+/* ========== ОБЩИЕ АДАПТИВНЫЕ СТИЛИ ========== */
+/* ============================================ */
+
+/* БОЛЬШИЕ ЭКРАНЫ (1400px+) */
+@media (min-width: 1400px) {
+  .cardsWrapper {
+    max-width: 1400px;
     justify-content: center;
-    align-items: center;
-    gap: 10px;
   }
 
-  .icon {
-    color: var(--black-400);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .card {
+    flex: 0 0 536px;
   }
 
-  .lawDesc {
-    margin-bottom: 24px;
+  .ourMissionSection {
+    padding: 100px 0;
   }
 
-  .buttonWrapper {
-    display: flex;
-    justify-content: center;
-    width: 100%;
+  .galleryTop {
+    height: 380px;
   }
 
-  .downloadBtn {
-    align-self: flex-start;
-    background: var(--dark-blue);
-    color: var(--main-white);
-    padding: 17px 38px;
-    border-radius: 10px;
-    text-decoration: none;
-    transition: background 0.3s;
-    margin-bottom: 15px;
-
-    &:hover {
-      background: #1e56d8;
-    }
+  .galleryBottom {
+    height: 300px;
   }
 }
-@media (max-width: 1024px) {
+
+/* ДЕСКТОПЫ (1200px - 1400px) */
+@media (max-width: 1200px) {
+  /* Management */
+  .cardWrapper {
+    gap: 16px;
+  }
+
+  /* Our Mission */
+  .galleryTop,
+  .galleryBottom {
+    height: auto;
+  }
+
+  .galleryTop {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .galleryBottom {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .galleryTop .image2 {
+    grid-row: span 2;
+  }
+
+  .galleryTop {
+    grid-auto-rows: auto;
+  }
+}
+
+/* ПЛАНШЕТЫ И НЕТБУКИ (992px - 1200px) */
+@media (max-width: 992px) {
+  /* Legal Framework */
   .legalFrameworkSection {
-    width: 100%;
     padding: 40px 0;
   }
 
-  .content {
+  .legalFrameworkSection .content {
     margin: 0 24px;
+    gap: 20px;
   }
 
-  .title {
+  .legalFrameworkSection .title {
     margin-bottom: 40px;
   }
 
   .cardsWrapper {
-    width: 100%;
-    padding-left: 16px;
-    padding-right: 16px;
     gap: 28px;
+    padding: 0 16px 10px 16px;
   }
 
   .card {
-    width: 480px;
-    height: auto;
+    flex: 0 0 480px;
     padding: 22px;
+  }
 
-    .downloadBtn {
-      padding: 14px 30px;
-    }
+  .card .downloadBtn {
+    padding: 14px 30px;
+  }
+
+  .card .lawDesc {
+    margin-bottom: 20px;
+  }
+
+  /* Management */
+  .personName,
+  .personPosition {
+    font-size: 18px;
+  }
+
+  /* Our Mission */
+  .ourMissionSection {
+    padding: 60px 24px;
+  }
+
+  .galleryTop,
+  .galleryBottom {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: auto;
+  }
+
+  .imageGrid img {
+    max-height: 400px;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .divider {
+    margin: 12px 0;
   }
 }
 
-@media (max-width: 480px) {
+/* МАЛЕНЬКИЕ ПЛАНШЕТЫ (768px - 992px) */
+@media (max-width: 768px) {
+  /* Legal Framework */
   .legalFrameworkSection {
-    width: 100%;
-    padding: 30px 0;
-    overflow: hidden;
+    padding: 40px 0;
   }
 
-  .content {
-    margin: 0;
+  .legalFrameworkSection .content {
+    margin: 0 16px;
+    gap: 16px;
   }
 
-  .title {
-    margin-bottom: 30px;
+  .legalFrameworkSection .title {
+    margin-bottom: 24px;
   }
 
   .cardsWrapper {
-    width: 100%;
-    justify-content: center;
-    padding-left: 10px;
-    padding-right: 10px;
     gap: 20px;
+    padding: 0 12px 10px 12px;
+  }
+
+  .card {
+    flex: 0 0 85%;
+    min-height: auto;
+    padding: 20px;
+  }
+
+  .card .downloadBtn {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+
+  .card .lawDesc {
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+  }
+
+  .card .date {
+    font-size: 0.85rem;
+  }
+
+  /* Management */
+  .management {
+    padding: 40px 16px;
+  }
+
+  /* Container (2fr/1fr images) */
+  .ImageWrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .smallImage {
+    display: none;
+  }
+
+  /* Our Mission */
+  .ourMissionSection {
+    padding: 40px 16px;
+  }
+
+  .ourMissionSection .content {
+    padding: 0 12px;
+  }
+
+  .ourMissionSection .paragraph {
+    margin-bottom: 30px;
+  }
+
+  .imageGrid {
+    margin-top: 24px;
+    gap: 16px;
+  }
+
+  .galleryTop,
+  .galleryBottom {
+    gap: 12px;
+  }
+
+  .imageGrid img {
+    max-height: 300px;
+  }
+}
+
+/* МОБИЛЬНЫЕ ТЕЛЕФОНЫ (480px - 768px) */
+@media (max-width: 480px) {
+  /* Legal Framework */
+  .legalFrameworkSection {
+    padding: 30px 0;
+  }
+
+  .legalFrameworkSection .content {
+    margin: 0 12px;
+    gap: 12px;
+  }
+
+  .legalFrameworkSection .title {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+  }
+
+  .cardsWrapper {
+    gap: 16px;
+    padding: 0 8px 10px 8px;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
   }
 
   .card {
-    box-sizing: border-box;
-    width: 100%;
-    height: auto;
-    padding: 20px;
-    gap: 6px;
+    flex: 0 0 90%;
+    padding: 16px;
+    border-radius: 16px;
+  }
 
-    .downloadBtn {
-      padding: 12px 24px;
-    }
+  .card .downloadBtn {
+    padding: 10px 20px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  .card .lawDesc {
+    margin-bottom: 12px;
+    font-size: 0.85rem;
+  }
+
+  .card .date {
+    font-size: 0.8rem;
+    gap: 6px;
+  }
+
+  .card .icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Our Mission */
+  .ourMissionSection {
+    padding: 30px 12px;
+  }
+
+  .ourMissionSection .content {
+    padding: 0 8px;
+  }
+
+  .ourMissionSection .title {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+  }
+
+  .ourMissionSection .paragraph {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+
+  .divider {
+    border-top-width: 2px;
+    margin: 8px 0;
+  }
+
+  .imageGrid {
+    margin-top: 20px;
+    gap: 12px;
+  }
+
+  .imageGrid img {
+    max-height: 250px;
+    border-radius: 8px;
+  }
+}
+
+/* ОЧЕНЬ МАЛЕНЬКИЕ ТЕЛЕФОНЫ (до 360px) */
+@media (max-width: 360px) {
+  /* Legal Framework */
+  .card {
+    flex: 0 0 95%;
+    padding: 14px;
+  }
+
+  .card .downloadBtn {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+  }
+
+  .card .lawDesc {
+    font-size: 0.8rem;
+  }
+}
+
+/* ============================================ */
+/* ДОПОЛНИТЕЛЬНЫЕ ПРАВКИ ДЛЯ SWIPER (если используется) */
+/* ============================================ */
+
+@media (max-width: 992px) {
+  .swiperContainer {
+    padding: 0 16px;
+  }
+
+  .personCard {
+    aspect-ratio: 280 / 420;
+  }
+
+  .personInfo {
+    padding: 16px 12px;
+  }
+
+  .personPosition {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+
+  .personName {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .personCard {
+    aspect-ratio: 260 / 380;
+  }
+
+  .personInfo {
+    padding: 12px 8px;
+  }
+
+  .personName {
+    font-size: 14px;
+  }
+
+  .personPosition {
+    font-size: 12px;
+    margin-top: 6px;
   }
 }

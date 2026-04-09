@@ -2,7 +2,8 @@ import funChildImage from "@/shared/assets/images/fun-child.jpg";
 import styles from "./../BannerSlider.module.scss";
 import { useNavigate } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa6";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getImageUrl } from "@/shared/utils/imageHelper";
 
 interface FirstSlideProps {
   image: string;
@@ -22,6 +23,10 @@ const FirstSlide = ({
   const navigate = useNavigate();
   const [imgError, setImgError] = useState(false);
 
+  useEffect(() => {
+    setImgError(false);
+  }, [image]);
+
   const handleClick = () => {
     if (cta_link) {
       if (cta_link.startsWith("http")) {
@@ -32,22 +37,21 @@ const FirstSlide = ({
     }
   };
 
-  // Полный URL изображения (если приходит относительный)
-  const getImageUrl = (url: string) => {
-    if (!url) return funChildImage;
-    if (url.startsWith("http")) return url;
-    return `http://157.230.235.0${url}`;
-  };
-
   const handleImageError = () => {
-    console.error("Failed to load image:", image);
+    console.error("Image failed to load:", image);
     setImgError(true);
   };
+
+  const imageUrl = getImageUrl(image);
+  const finalImageUrl = !imgError && imageUrl ? imageUrl : funChildImage;
+
+  console.log("Original image path:", image);
+  console.log("Final image URL:", finalImageUrl);
 
   return (
     <div className={styles.banner}>
       <img
-        src={imgError ? funChildImage : getImageUrl(image)}
+        src={finalImageUrl}
         alt={title || "banner"}
         className={styles.bannerBg}
         onError={handleImageError}

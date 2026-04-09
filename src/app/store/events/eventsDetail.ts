@@ -3,7 +3,7 @@ import { AxiosError } from "axios";
 import { create } from "zustand";
 
 interface Image {
-  id: number; 
+  id: number;
   event: number;
   image: string;
 }
@@ -14,16 +14,16 @@ interface EventDetail {
   description: string;
   date: string;
   images: Image[]; // массив картинок
-  time: string,
-  place: string
+  time: string;
+  place: string;
 }
 
 interface EventDetailState {
-  eventDetail: EventDetail | null; 
+  eventDetail: EventDetail | null;
   loading: boolean;
   error: string | null;
   fetchEventDetail: (id: number) => Promise<void>;
-  reset: () => void; 
+  reset: () => void;
 }
 
 export const EventDetailStore = create<EventDetailState>((set) => ({
@@ -34,18 +34,20 @@ export const EventDetailStore = create<EventDetailState>((set) => ({
   fetchEventDetail: async (id: number) => {
     set({ loading: true, error: null });
     try {
-      const response = await axiosInstance.get<EventDetail>(`content/events/${id}/`);
-      const apiData = response.data; 
-    const transformedData: EventDetail = {
-    id: apiData.id,
-    title: apiData.title,
-    description: apiData.description,
-    date: apiData.date,
-    time: apiData.time || "",  
-    place: apiData.place || "",
-    images: apiData.images,  
-};
-set({ eventDetail: transformedData });
+      const response = await axiosInstance.get<EventDetail>(
+        `content/events/${id}/`,
+      );
+      const apiData = response.data;
+      const transformedData: EventDetail = {
+        id: apiData.id,
+        title: apiData.title,
+        description: apiData.description,
+        date: apiData.date,
+        time: apiData.time || "",
+        place: apiData.place || "",
+        images: apiData.images,
+      };
+      set({ eventDetail: transformedData });
     } catch (err) {
       const error = err as AxiosError<{ message: string }>;
       set({ error: error.response?.data?.message || "Something went wrong" });

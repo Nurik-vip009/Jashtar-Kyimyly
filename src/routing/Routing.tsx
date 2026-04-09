@@ -9,7 +9,7 @@ import Events from "@/pages/EventsPage/Events";
 import EventsArchivePage from "@/pages/EventsArchivePage/EventsArchivePage";
 import News from "@/pages/News/News";
 import NewsPage from "@/pages/NewsPage/NewsPage";
-import Main from "@/pages/BrandsMaterials/ui/Main/Main"
+import Main from "@/pages/BrandsMaterials/ui/Main/Main";
 import DetailView from "@/pages/BrandsMaterials/ui/DetailView/DetailView";
 import NotFound from "@/widgets/NotFound/NotFound";
 
@@ -23,16 +23,14 @@ export default function Routing() {
     { link: "/branchnamepages", page: <BranchNamePages />, id: 4 },
     { link: "/project", page: <Project />, id: 5 },
     { link: "/project/projectnamepages", page: <ProjectNamePages />, id: 6 }, // ✅ Ушундай
-    { link: "/events", page: <Events />, id: 7 }, 
-    { link: "/eventsArchivePage", page: <EventsArchivePage />, id: 8 }, 
-    { link: "/news", page: <News />, id: 9 }, 
-    { link: "/newsheadline", page: <NewsPage />, id: 10 }, 
-  
-    { link: "/main", page: <Main/>, id:7},
-    { link: "/detailview", page: <DetailView />, id:8},
-    { link: "/notfound", page: <NotFound />, id:9},
-    
+    { link: "/events", page: <Events />, id: 7 },
+    { link: "/eventsArchivePage", page: <EventsArchivePage />, id: 8 },
+    { link: "/news", page: <News />, id: 9 },
+    { link: "/newsheadline", page: <NewsPage />, id: 10 },
 
+    { link: "/main", page: <Main />, id: 7 },
+    { link: "/detailview", page: <DetailView />, id: 8 },
+    { link: "/notfound", page: <NotFound />, id: 9 },
 
     // { link: "/about-motion", page: <AboutUsPage />, id: 2 },
 
@@ -59,5 +57,4 @@ export default function Routing() {
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
-  
 }

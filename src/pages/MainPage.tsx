@@ -1,17 +1,17 @@
 import { Banners } from "@/widgets/Banners";
-import BrandsPages from "./BrandsPages/BrandsPages";
-import { EventsPages } from "./EventsPages/EventsPages";
-import { NewsPages } from "./NewsPages/NewsPages";
-import Movement from "@/widgets/Movment/ui/Movement";
+import { Movement } from "@/widgets/Movement";
+import { Events } from "@/widgets/Events";
+import { News } from "@/widgets/News";
+import { Brands } from "@/widgets/Brands";
 
 const MainPage = () => {
   return (
     <div>
       <Banners />
       <Movement />
-      <EventsPages />
-      <NewsPages />
-      <BrandsPages />
+      <Events />
+      <News />
+      <Brands />
     </div>
   );
 };

@@ -1,23 +1,23 @@
 // import { useEffect } from 'react';
-import styles from './OurMissionSection.module.scss';
-import { MultiContainer, Typography } from '@/shared/ui';
+import styles from "./OurMissionSection.module.scss";
+import { MultiContainer, Typography } from "@/shared/ui";
 // import { useTranslation } from 'react-i18next';
-import Image4 from '@/shared/assets/images/movementsection2.svg';
-import Image5 from '@/shared/assets/images/movementsection3.svg';
-import Image6 from '@/shared/assets/images/movementsection4.svg';
-import Image7 from '@/shared/assets/images/movementsection5.svg';
-import Image8 from '@/shared/assets/images/movementsection6.svg';
+import Image4 from "@/shared/assets/images/movementsection2.svg";
+import Image5 from "@/shared/assets/images/movementsection3.svg";
+import Image6 from "@/shared/assets/images/movementsection4.svg";
+import Image7 from "@/shared/assets/images/movementsection5.svg";
+import Image8 from "@/shared/assets/images/movementsection6.svg";
 // import { useAboutGoalStore } from '@/app/store/about-movement/ourmissionsection';
 // import { useLanguageStore } from '@/app/store/languageStore';
 
 const data = {
-  title: 'Цели и миссии',
+  title: "Цели и миссии",
   description:
-    'Принимая во внимание показатели успешности, консультация с широким активом говорит о возможностях системы обучения кадров, соответствующей насущным потребностям. Но существующая теория предполагает независимые способы реализации форм воздействия. Высокий уровень вовлечения представителей целевой аудитории является четким доказательством простого факта: социально-экономическое развитие предопределяет высокую востребованность модели развития! Идейные соображения высшего порядка, а также повышение уровня гражданского сознания не даёт нам иного выбора, кроме определения экспериментов, поражающих по своей масштабности и грандиозности.',
+    "Принимая во внимание показатели успешности, консультация с широким активом говорит о возможностях системы обучения кадров, соответствующей насущным потребностям. Но существующая теория предполагает независимые способы реализации форм воздействия. Высокий уровень вовлечения представителей целевой аудитории является четким доказательством простого факта: социально-экономическое развитие предопределяет высокую востребованность модели развития! Идейные соображения высшего порядка, а также повышение уровня гражданского сознания не даёт нам иного выбора, кроме определения экспериментов, поражающих по своей масштабности и грандиозности.",
   images: [Image4, Image5, Image6, Image7, Image8],
 };
 
-export const OurMissionSection= () => {
+export const OurMissionSection = () => {
   // const { t, i18n } = useTranslation();
   // const { data, loading, error, fetchAboutGoal } = useAboutGoalStore();
   // const { currentLang } = useLanguageStore();
@@ -35,11 +35,21 @@ export const OurMissionSection= () => {
     <section className={styles.ourMissionSection}>
       <MultiContainer>
         <div className={styles.content}>
-          <Typography variant='title' color='black' weight='600' className={styles.title}>
+          <Typography
+            variant="title"
+            color="black"
+            weight="600"
+            className={styles.title}
+          >
             {/* {t('aboutTheMovement.goals')} */}
             {data.title}
           </Typography>
-          <Typography variant='desc' color='black' weight='400' className={styles.paragraph}>
+          <Typography
+            variant="desc"
+            color="black"
+            weight="400"
+            className={styles.paragraph}
+          >
             {data.description}
           </Typography>
 

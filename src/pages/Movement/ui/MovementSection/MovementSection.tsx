@@ -1,20 +1,20 @@
-import { useEffect } from 'react';
-import styles from './MovementSection.module.scss';
-import { MultiContainer, Typography } from '@/shared/ui';
-import Imge1 from '@/shared/assets/images/movementsection.png';
-import Imge2 from '@/shared/assets/images/movementsection1.png';
-import { useAboutMovementStore } from '@/app/store/about-movement/aboutMovementStore';
+import { useEffect } from "react";
+import styles from "./MovementSection.module.scss";
+import { MultiContainer, Typography } from "@/shared/ui";
+import Imge1 from "@/shared/assets/images/movementsection.png";
+import Imge2 from "@/shared/assets/images/movementsection1.png";
+import { useAboutMovementStore } from "@/app/store/about-movement/aboutMovementStore";
 
 export const MovementSection = () => {
   // const { data, loading, error, fetchAboutMovement } = useAboutMovementStore();
 
-//   // useEffect(() => {
-//   //   fetchAboutMovement();
-//   // }, [fetchAboutMovement]);
+  //   // useEffect(() => {
+  //   //   fetchAboutMovement();
+  //   // }, [fetchAboutMovement]);
 
-//   // if (loading) {
-//   //   return <div className={styles.loading}>Загрузка данных о движении...</div>;
-//   // }
+  //   // if (loading) {
+  //   //   return <div className={styles.loading}>Загрузка данных о движении...</div>;
+  //   // }
 
   // if (error) {
   //   return <div className={styles.error}>Ошибка при загрузке данных: {error}</div>;
@@ -37,33 +37,36 @@ export const MovementSection = () => {
       <MultiContainer>
         <div className={styles.container}>
           <div className={styles.container__header}>
-            <Typography color='black' variant='title' weight='600' className={styles.title}>
+            <Typography
+              color="black"
+              variant="title"
+              weight="600"
+              className={styles.title}
+            >
               {MOVEMENT_DATA.title}
             </Typography>
             <Typography
-              color='black'
-              variant='desc'
-              weight='400'
+              color="black"
+              variant="desc"
+              weight="400"
               className={styles.description}
             >
               {MOVEMENT_DATA.description}
             </Typography>
           </div>
 
-           <div className={styles.ImageWrapper}>
-             <img
-                 src={MOVEMENT_DATA.imageRight}
-                 alt='People laughing'
-                 className={styles.bigImage}
-               />
+          <div className={styles.ImageWrapper}>
+            <img
+              src={MOVEMENT_DATA.imageRight}
+              alt="People laughing"
+              className={styles.bigImage}
+            />
 
-            
-              <img
-                src={MOVEMENT_DATA.ImageLeft}
-                alt='People laughing'
-                className={styles.smallImage}
-              />
-            
+            <img
+              src={MOVEMENT_DATA.ImageLeft}
+              alt="People laughing"
+              className={styles.smallImage}
+            />
           </div>
         </div>
       </MultiContainer>

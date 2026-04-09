@@ -3,29 +3,33 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import type { Swiper as SwiperType } from "swiper";
 import styles from "./BannerSlider.module.scss";
-import { useEffect, useCallback } from "react";
-import { BannerStore } from "@/app/store/banner/banner";
+import { useEffect } from "react";
+import { useHomeStore } from "../../../app/store/home/homeStore";
 import FirstSlide from "./Slides/FirstSlide";
 
 export default function BannerSlider() {
-  const { banners, loading, error, fetchBanners } = BannerStore();
+  const { banners, loading, error, fetchHomeData } = useHomeStore();
 
   useEffect(() => {
-    fetchBanners();
-  }, [fetchBanners]);
+    fetchHomeData();
+  }, [fetchHomeData]);
 
-  // Мемоизация пропсов для Swiper (опционально)
-  const paginationConfig = useCallback(
-    () => ({
-      clickable: true,
-      dynamicBullets: false,
-    }),
-    [],
-  );
+  // Отладка: выводим баннеры
+  useEffect(() => {
+    if (banners && banners.length > 0) {
+      console.log(
+        "Banners loaded:",
+        banners.map((b) => ({
+          id: b.id,
+          title: b.title,
+          imageUrl: b.images?.[0]?.image,
+          fullImageObject: b.images?.[0],
+        })),
+      );
+    }
+  }, [banners]);
 
-  // Состояния загрузки
   if (loading) {
     return (
       <div className={styles.loaderContainer}>
@@ -34,19 +38,17 @@ export default function BannerSlider() {
     );
   }
 
-  // Состояния ошибки
   if (error) {
     return (
       <div className={styles.error}>
         <p>Ошибка: {error}</p>
-        <button onClick={() => fetchBanners()} className={styles.retryButton}>
+        <button onClick={() => fetchHomeData()} className={styles.retryButton}>
           Попробовать снова
         </button>
       </div>
     );
   }
 
-  // Нет баннеров
   if (!banners || banners.length === 0) {
     return (
       <div className={styles.noBanners}>
@@ -74,18 +76,33 @@ export default function BannerSlider() {
               }
             : false
         }
+        onSlideChange={(swiper) => {
+          console.log("Slide changed to:", swiper.activeIndex);
+          console.log("Current banner:", banners[swiper.realIndex]);
+        }}
       >
-        {banners.map((banner) => (
-          <SwiperSlide key={banner.id}>
-            <FirstSlide
-              image={banner.images?.[0]?.image || ""}
-              title={banner.title || ""}
-              description={banner.description || ""}
-              cta_text={banner.cta_text || ""}
-              cta_link={banner.cta_link || ""}
-            />
-          </SwiperSlide>
-        ))}
+        {banners.map((banner: any, index: number) => {
+          const imageUrl = banner.images?.[0]?.image || "";
+
+          console.log(`Rendering slide ${index}:`, {
+            id: banner.id,
+            title: banner.title,
+            imageUrl: imageUrl,
+            hasImage: !!imageUrl,
+          });
+
+          return (
+            <SwiperSlide key={`${banner.id}-${imageUrl}-${index}`}>
+              <FirstSlide
+                image={imageUrl}
+                title={banner.title || ""}
+                description={banner.description || ""}
+                cta_text={banner.cta_text || ""}
+                cta_link={banner.cta_link || ""}
+              />
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </div>
   );
