@@ -19,7 +19,6 @@ export interface IFooterData {
 }
 
 export const getFooterData = async (): Promise<IFooterData> => {
-	// Добавил "/" после footer, это критично для Django/Swagger
 	const response = await axiosInstance.get<IFooterData>("footer");
 	return response.data;
 };
