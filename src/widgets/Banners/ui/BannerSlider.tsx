@@ -14,6 +14,7 @@ export default function BannerSlider() {
   useEffect(() => {
     fetchHomeData();
   }, [fetchHomeData]);
+  console.log(banners);
 
   // Отладка: выводим баннеры
   useEffect(() => {
@@ -25,7 +26,7 @@ export default function BannerSlider() {
           title: b.title,
           imageUrl: b.images?.[0]?.image,
           fullImageObject: b.images?.[0],
-        })),
+        }))
       );
     }
   }, [banners]);

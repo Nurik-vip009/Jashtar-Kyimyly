@@ -23,6 +23,7 @@ const Events = () => {
   if (error) {
     return <div className={styles.error}>Ошибка: {error}</div>;
   }
+  console.log(events);
 
   const eventsList = Array.isArray(events) ? events : [];
 
