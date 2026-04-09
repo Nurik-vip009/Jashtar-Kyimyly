@@ -3,11 +3,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-block: clamp(20px, 3.6vw, 40px);
-  gap: 20px;
+  padding-block: clamp(20px, 3.6vw, 50px);
+  gap: 40px;
+  @media (max-width: 800px) {
+    gap: 30px;
+  }
+  @media (max-width: 480px) {
+    gap: 20px;
+  }
   .title {
     font-size: clamp(20px, 3.6vw, 40px);
-    margin-bottom: 40px;
     text-align: center;
     font-weight: 500;
     @media (max-width: 480px) {
@@ -18,7 +23,7 @@
     font-size: clamp(12px, 1.8vw, 20px);
     line-height: 1.5;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
     @media (max-width: 480px) {
       margin-bottom: 0px;
     }
@@ -58,8 +63,8 @@
         top: 0px;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 40px;
-        height: 40px;
+        width: 50px;
+        height: 50px;
         background: #abc4fb;
         border: 10px solid #fff;
         border-radius: 100%;
@@ -67,17 +72,18 @@
         justify-content: center;
         align-items: center;
         @media (max-width: 700px) {
-          width: 30px;
-          height: 30px;
+          width: 40px;
+          height: 40px;
+          border: 8px solid #fff;
         }
         div {
           background: #d5e2fd;
-          width: 20px;
-          height: 20px;
+          width: 15px;
+          height: 15px;
           border-radius: 100%;
           @media (max-width: 700px) {
-            width: 14px;
-            height: 14px;
+            width: 10px;
+            height: 10px;
           }
         }
       }

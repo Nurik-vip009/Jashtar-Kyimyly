@@ -1,5 +1,8 @@
 .brand {
-  padding-bottom: 40px;
+  padding-block: 50px;
+  @media (max-width: 480px) {
+    padding-block: 30px;
+  }
   .headMaterials {
     display: flex;
     align-items: start;

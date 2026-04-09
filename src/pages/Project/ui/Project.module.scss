@@ -1,128 +1,86 @@
 .projectSection {
-    padding: 40px;
-    max-width: 1320px;
-    margin: 0 auto;
+  padding: 40px 20px;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.projectGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.projectCard {
+  flex: 1 1 400px;
+
+  max-width: 424px;
+  min-height: 580px;
+
+  background: var(--main-white);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.projectImage {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  display: block;
+}
+
+.cardContent {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.cardTitle {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.cardDescription {
+  flex-grow: 1;
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.learnMoreButton {
+  width: 100%;
+  height: 52px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #2563eb;
   }
-  
-  .sectionTitle {
-    text-align: center;
-    margin-bottom: 40px;
-    font-weight: 600;
-    font-size: 40px;
-    line-height: 100%;
-  }
-  
-  .projectGrid {
-    display: flex;
-    gap: 24px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
+}
+
+@media (max-width: 480px) {
   .projectCard {
-    width: 424px;
-    height: 576px;
-    border-radius: 8px;
-    overflow: hidden;
-    // background-color: #f9f9f9;
-    display: flex;
-    flex-direction: column;
+    flex-basis: 100%;
+    max-width: 100%;
+    min-height: auto;
   }
-  
+
   .projectImage {
-    width: 100%;
-    height: 351px;
-    object-fit: cover;
-    display: block;
+    height: 250px;
   }
-  
-  .cardContent {
-    padding: 12px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-  
-  .cardTitle {
-    color: #111111;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 100%;
-    text-align: center;
-  }
-  
-  .cardDescription {
-    color: #111111;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 100%;
-    text-align: center;
-    margin: 12px 0 24px 0;
-  }
-  
-  .learnMoreButton {
-    width: 100%;
-    height: 52px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 100%;
-    transition: background-color 0.3s ease;
-  
-    &:hover {
-      background-color: #0056b3;
-    }
-  }
-  
-  // ✅ Адаптивдүү дизайн
-  
-  // Планшет (768px↓)
-  @media (max-width: 1024px) {
-    .sectionTitle {
-      font-size: 32px;
-    }
-  
-    .projectCard {
-      width: 48%;
-      height: auto;
-    }
-  }
-  
-  // Смартфон (480px↓)
-  @media (max-width: 768px) {
-    .sectionTitle {
-      font-size: 28px;
-      margin-bottom: 24px;
-    }
-  
-    .projectGrid {
-      flex-direction: column;
-      gap: 16px;
-      align-items: center;
-    }
-  
-    .projectCard {
-      width: 100%;
-      max-width: 100%;
-      height: auto;
-    }
-  
-    .cardTitle {
-      font-size: 20px;
-    }
-  
-    .cardDescription {
-      font-size: 16px;
-    }
-  
-    .learnMoreButton {
-      font-size: 16px;
-      height: 48px;
-    }
-  }
-  
+}

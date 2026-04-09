@@ -19,8 +19,16 @@ export const VideoCard: React.FC<VideoCardProps> = ({
   thumbnailUrl,
   videoUrl,
 }) => {
-  console.log(videoUrl);
-
+  const getEmbedUrl = (url: string) => {
+    const regExp =
+      /(?:youtube\.com\/(?:watch\?v=|live\/)|youtu\.be\/)([^&?\n]+)/;
+    const match = url.match(regExp);
+    return match ? `https://www.youtube.com/embed/${match[1]}` : "";
+  };
+  const embedUrl = getEmbedUrl(videoUrl);
+  if (!embedUrl) {
+    return <div className={styles.card}>Неверная ссылка на видео</div>;
+  }
   return (
     <article className={styles.card}>
       <div className={styles.videoWrapper}>
@@ -29,28 +37,10 @@ export const VideoCard: React.FC<VideoCardProps> = ({
             type: "video",
             sources: [
               {
-                src: videoUrl,
-                provider:
-                  videoUrl.includes("youtube.com") ||
-                  videoUrl.includes("youtu.be")
-                    ? "youtube"
-                    : "html5",
+                src: getEmbedUrl(videoUrl),
+                provider: "youtube",
               },
             ],
-            poster: thumbnailUrl,
-          }}
-          options={{
-            controls: [
-              "play-large",
-              "play",
-              "progress",
-              "current-time",
-              "mute",
-              "volume",
-              "settings",
-              "fullscreen",
-            ],
-            ratio: "16:9",
           }}
         />
       </div>

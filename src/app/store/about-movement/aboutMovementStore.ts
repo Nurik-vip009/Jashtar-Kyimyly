@@ -1,11 +1,18 @@
-import { create } from 'zustand';
-import { axiosInstance } from '@/app/api/apiclient';
+import { create } from "zustand";
+import { axiosInstance } from "@/app/api/apiclient";
 
-interface AboutMovement {
+export interface MovementItem {
+  id: number;
+  image: string;
+  order: number;
+  is_active: boolean;
+}
+
+export interface AboutMovement {
   id: number;
   title: string;
-  description: string;
-  image: string;
+  text: string;
+  movement_items: MovementItem[];
 }
 
 interface AboutMovementState {
@@ -22,25 +29,35 @@ export const useAboutMovementStore = create<AboutMovementState>((set) => ({
 
   fetchAboutMovement: async () => {
     set({ loading: true, error: null });
+
     try {
-      const response = await axiosInstance.get('/about_direction/history/');
-      
-      // Берём первый элемент массива
+      const response = await axiosInstance.get<AboutMovement[]>(
+        "/movement/movement/"
+      );
+
       const apiData = response.data[0];
 
-      const transformedData = {
-        id: apiData.id ?? 1, // Если ID нет, можно задать 1
-        title: apiData.title,
-        description: apiData.description,
-        image: apiData.image, // Полный URL уже есть в API
-      };
+      const sortedItems = (apiData?.movement_items || []).sort(
+        (a, b) => a.order - b.order
+      );
 
-      console.log("Данные о движении:", transformedData);
-
-      set({ data: transformedData, loading: false });
+      set({
+        data: {
+          id: apiData.id,
+          title: apiData.title,
+          text: apiData.text,
+          movement_items: sortedItems,
+        },
+        loading: false,
+      });
     } catch (err: any) {
       console.error("Ошибка при загрузке данных:", err.message);
-      set({ data: null, loading: false, error: err.message });
+
+      set({
+        data: null,
+        loading: false,
+        error: err.message,
+      });
     }
   },
 }));

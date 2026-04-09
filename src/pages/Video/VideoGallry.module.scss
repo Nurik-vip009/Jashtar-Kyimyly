@@ -303,3 +303,35 @@ $breakpoint-xs: 480px;
 //     animation-delay: #{$i * 0.05}s;
 //   }
 // }
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #111111;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+
+  .clickable {
+    cursor: pointer;
+    color: #111111;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #0066cc;
+      text-decoration: underline;
+    }
+  }
+
+  .current {
+    color: #111111;
+    // font-weight: 500;
+  }
+
+  svg {
+    width: 14px;
+    height: 14px;
+    color: #999;
+  }
+}

@@ -52,15 +52,21 @@ export const LegalFrameworkSection: FC = () => {
                   </Typography>
                 </div>
                 <div className={styles.lawDesc}>
-                  <Typography variant='desc' color='black' weight='400'>
+                  <Typography variant='card_desc' color='black' weight='400'>
                     {law.description}
                   </Typography>
                 </div>
-                <a className={styles.downloadBtn} href={law.link}>
-                  <Typography variant='card_button' color='white' weight='400'>
-                    Скачать PDF
-                  </Typography>
-                </a>
+                <div className={styles.buttonWrapper}>
+                  <a className={styles.downloadBtn} href={law.link}>
+                    <Typography
+                      variant='card_button'
+                      color='white'
+                      weight='400'
+                    >
+                      Скачать PDF
+                    </Typography>
+                  </a>
+                </div>
               </div>
             ))}
           </div>

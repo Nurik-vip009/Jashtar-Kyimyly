@@ -131,9 +131,9 @@ export function EventsPages() {
       ],
     },
   ];
-  useEffect(() => {
-    fetchevents();
-  }, []);
+  // useEffect(() => {
+  //   fetchevents();
+  // }, []);
   // if (loading) {
   //   return <div className="loader"></div>;
   // }
@@ -157,7 +157,7 @@ export function EventsPages() {
       <div className={scss.event}>
         <div className={scss.eventTitle}>
           <h1>{t("landing.upcomingEvents")}</h1>
-          <button onClick={() => usenavigate("/")}>
+          <button onClick={() => usenavigate("/events")}>
             {t("landing.button")}
           </button>
         </div>

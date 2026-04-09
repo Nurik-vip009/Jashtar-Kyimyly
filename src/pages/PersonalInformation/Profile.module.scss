@@ -1,8 +1,3 @@
-// Скрываем header если он не является вашим .header
-header:not(.header) {
-  display: none !important;
-}
-
 // Переменные
 $primary-blue: #2e6cf4;
 $light-blue: #e6f5fa;
@@ -12,58 +7,6 @@ $white: #ffffff;
 $black: #111111;
 $gray-light: #e8e8e8;
 $gray-medium: #a0a0a0;
-
-// Миксины для анимаций
-@mixin fadeInUp($delay: 0s) {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.6s ease-out #{$delay} forwards;
-}
-
-@mixin fadeInLeft($delay: 0s) {
-  opacity: 0;
-  transform: translateX(-20px);
-  animation: fadeInLeft 0.6s ease-out #{$delay} forwards;
-}
-
-@mixin fadeInRight($delay: 0s) {
-  opacity: 0;
-  transform: translateX(20px);
-  animation: fadeInRight 0.6s ease-out #{$delay} forwards;
-}
-
-// Анимации
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInLeft {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeInRight {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
 
 // Основной контейнер
 .container {
@@ -86,7 +29,6 @@ $gray-medium: #a0a0a0;
 
 // Хедер
 .header {
-  @include fadeInUp(0.1s);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -221,7 +163,6 @@ $gray-medium: #a0a0a0;
 
 // Сайдбар
 .sidebar {
-  @include fadeInLeft(0.2s);
   width: 312px;
   flex-shrink: 0;
   position: relative;
@@ -371,7 +312,6 @@ $gray-medium: #a0a0a0;
 }
 
 .contentArea {
-  @include fadeInRight(0.3s);
   flex: 1;
   display: flex;
   flex-direction: column;

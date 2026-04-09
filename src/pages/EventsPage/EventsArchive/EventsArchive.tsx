@@ -55,7 +55,7 @@ function EventsArchive() {
       ],
     },
     {
-      id: 2,
+      id: 3,
       title: "Название мероприятия",
       description: "Описание мероприятия",
       event_status: "2",
@@ -71,7 +71,7 @@ function EventsArchive() {
       ],
     },
     {
-      id: 2,
+      id: 4,
       title: "Название мероприятия",
       description: "Описание мероприятия",
       event_status: "2",
@@ -87,7 +87,7 @@ function EventsArchive() {
       ],
     },
     {
-      id: 2,
+      id: 5,
       title: "Название мероприятия",
       description: "Описание мероприятия",
       event_status: "2",
@@ -103,7 +103,7 @@ function EventsArchive() {
       ],
     },
     {
-      id: 2,
+      id: 6,
       title: "Название мероприятия",
       description: "Описание мероприятия",
       event_status: "2",

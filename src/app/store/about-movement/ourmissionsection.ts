@@ -1,12 +1,18 @@
-import { create } from 'zustand';
-import { axiosInstance } from '@/app/api/apiclient';
-import { useLanguageStore } from '../languageStore';
+import { create } from "zustand";
+import { axiosInstance } from "@/app/api/apiclient";
 
-interface Goal {
+export interface MissionItem {
+  id: number;
+  image: string;
+  order: number;
+  is_active: boolean;
+}
+
+export interface Goal {
   id: number;
   title: string;
-  description: string;
-  images: string[];
+  text: string;
+  missions_items: MissionItem[];
 }
 
 interface AboutGoalState {
@@ -16,31 +22,42 @@ interface AboutGoalState {
   fetchAboutGoal: () => Promise<void>;
 }
 
-export const useAboutGoalStore = create<AboutGoalState>((set, get) => ({
+export const useAboutGoalStore = create<AboutGoalState>((set) => ({
   data: null,
   loading: false,
   error: null,
 
   fetchAboutGoal: async () => {
-    const lang = useLanguageStore.getState().currentLang;
-    axiosInstance.defaults.headers['Accept-Language'] = lang;
-
     set({ loading: true, error: null });
+
     try {
-      const response = await axiosInstance.get('/about_direction/goals/');
-      const apiData = response.data[0]; // Берем первый элемент
+      const response = await axiosInstance.get<Goal[]>("/movement/missions/");
 
-      const transformedData: Goal = {
-        id: apiData.id ?? 1,
-        title: apiData.title,
-        description: apiData.description,
-        images: apiData.images || [],
-      };
+      // 👉 берем первый элемент
+      const apiData = response.data[0];
 
-      set({ data: transformedData, loading: false });
+      // 👉 сортируем картинки
+      const sortedItems = (apiData?.missions_items || []).sort(
+        (a, b) => a.order - b.order
+      );
+
+      set({
+        data: {
+          id: apiData.id,
+          title: apiData.title,
+          text: apiData.text,
+          missions_items: sortedItems,
+        },
+        loading: false,
+      });
     } catch (err: any) {
       console.error("Ошибка при загрузке целей:", err.message);
-      set({ data: null, loading: false, error: err.message });
+
+      set({
+        data: null,
+        loading: false,
+        error: err.message,
+      });
     }
   },
 }));

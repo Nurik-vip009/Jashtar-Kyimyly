@@ -64,7 +64,7 @@ function Header() {
                 }}
               >
                 <option value="ru">РУС</option>
-                <option value="ky">KGS</option>
+                <option value="ky">KGZ</option>
                 <option value="en">ENG</option>
               </select>
 

@@ -1,10 +1,10 @@
-import { ArrowRightIcon } from "lucide-react";
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { PhotoCard } from "../PhotoCard/PhotoCard";
+import { ArrowRightIcon, ChevronRight } from "lucide-react";
+import React, { useEffect } from "react";
 import styles from "./PhotoGallery.module.scss";
+import { PhotoCard } from "../PhotoCard/PhotoCard";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
+import { useImagesStore } from "@/app/store/Media/images";
 
 const mockImages = [
   {
@@ -48,33 +48,52 @@ const mockImages = [
 export const PhotoGallery: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-
+  const handleGoHome = () => navigate("/");
+  const handleGoMedia = () => navigate("/media");
+  const handleGoPhotoGallery = () => navigate("/photoGallery");
+  const { fetchImages, imagesCards } = useImagesStore();
+  useEffect(() => {
+    fetchImages();
+  }, [fetchImages]);
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>
-          {(t("media.PhotoGallery") as string) || "Фотогалерея"}
-        </h1>
+      <div className={styles.breadcrumbs}>
+        <span onClick={handleGoHome} className={styles.clickable}>
+          Главная
+        </span>
+        <ChevronRight size={14} />
+        <span onClick={handleGoMedia} className={styles.clickable}>
+          Медиа
+        </span>
+        <ChevronRight size={14} />
+        <span onClick={handleGoPhotoGallery} className={styles.clickable}>
+          Фотогалерея
+        </span>
+      </div>
 
+      <div className={styles.headerWrapper}>
+        <h1 className={styles.title}>
+          {t("media.PhotoGallery") || "Фотогалерея"}
+        </h1>
         <button
           onClick={() => navigate("/photoGallery")}
           className={styles.button}
         >
           <span className={styles.buttonText}>
-            {(t("media.allPhoto") as string) || "Все фото"}
+            {t("media.allPhoto") || "Все фото"}
           </span>
           <ArrowRightIcon className={styles.buttonIcon} />
         </button>
-      </header>
+      </div>
 
       <main className={styles.gallery}>
-        {mockImages.slice(0, 6).map((item) => (
+        {imagesCards?.map((item) => (
           <PhotoCard
             key={item.id}
             id={item.id}
             date={item.date}
             title={item.title}
-            imageUrl={item.image}
+            cover_image={item.cover_image}
           />
         ))}
       </main>

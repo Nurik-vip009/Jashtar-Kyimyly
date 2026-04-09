@@ -47,7 +47,7 @@ const UpcomingEvents: React.FC = () => {
       ],
     },
     {
-      id: 2,
+      id: 3,
       title: "Название мероприятия",
       description: "Описание мероприятия",
       event_status: "2",
@@ -63,7 +63,7 @@ const UpcomingEvents: React.FC = () => {
       ],
     },
     {
-      id: 2,
+      id: 4,
       title: "Название мероприятия",
       description: "Описание мероприятия",
       event_status: "2",
@@ -79,7 +79,7 @@ const UpcomingEvents: React.FC = () => {
       ],
     },
     {
-      id: 2,
+      id: 5,
       title: "Название мероприятия",
       description: "Описание мероприятия",
       event_status: "2",
@@ -113,38 +113,38 @@ const UpcomingEvents: React.FC = () => {
   ];
 
   return (
-    <div className={styles.UpcomingEvents}>
+    <div className={`${styles.UpcomingEvents}`}>
       <h1 className={styles.title}>{t("events.upcomingEvents")}</h1>
-
-      <div className={styles.swiperWrapper}>
-        <button className={`prev ${styles.customArrow}`}>
-          <ChevronLeft />
-        </button>
-
-        <Swiper
-          modules={[Navigation]}
-          navigation={{
-            prevEl: ".prev",
-            nextEl: ".next",
-          }}
-          spaceBetween={20}
-          breakpoints={{
-            0: { slidesPerView: 2.12 },
-            769: { slidesPerView: 3.1 },
-          }}
-        >
-          {data.map((event) => (
-            <SwiperSlide key={event.id} className={styles.slide}>
-              <Card
-                onClick={() => navigate(`/events/${event.id}`)}
-                item={event}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        <button className={`next ${styles.customArrow}`}>
-          <ChevronRight />
-        </button>
+      <div className={`${styles.content} container`}>
+        <div className={styles.swiperWrapper}>
+          <button className={`prev ${styles.customArrow}`}>
+            <ChevronLeft />
+          </button>
+          <Swiper
+            modules={[Navigation]}
+            navigation={{
+              prevEl: ".prev",
+              nextEl: ".next",
+            }}
+            spaceBetween={20}
+            breakpoints={{
+              0: { slidesPerView: 2 },
+              768: { slidesPerView: 3 },
+            }}
+          >
+            {data.map((event) => (
+              <SwiperSlide key={event.id} className={styles.slide}>
+                <Card
+                  onClick={() => navigate(`/events/${event.id}`)}
+                  item={event}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <button className={`next ${styles.customArrow}`}>
+            <ChevronRight />
+          </button>
+        </div>
       </div>
     </div>
   );

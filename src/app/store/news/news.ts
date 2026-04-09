@@ -26,7 +26,8 @@ export const NewsStore = create<NewsState>((set) => ({
     set({ loading: true, error: null });
     try {
       // axiosInstance уже содержит Accept-Language через setLanguage
-      const response = await axiosInstance.get<News[]>("content/news/");
+      const response = await axiosInstance.get<News[]>("/home");
+      console.log(response);
 
       // Преобразуем данные при необходимости
       const transformedData = response.data.map((item) => ({

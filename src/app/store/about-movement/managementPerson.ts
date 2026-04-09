@@ -1,46 +1,61 @@
 import { create } from "zustand";
 import { axiosInstance } from "@/app/api/apiclient";
-import { useLanguageStore } from "../languageStore";
 
-interface ManagementPerson {
+export interface ManagementPerson {
   id: number;
   image: string;
-  full_name: string; // изменено
+  full_name: string;
   position: string;
+  order: number;
+  is_active: boolean;
+}
+
+export interface ManagementBlock {
+  title: string;
+  leaders: ManagementPerson[];
 }
 
 interface ManagementState {
-  data: ManagementPerson[];
+  data: ManagementBlock | null;
   loading: boolean;
   error: string | null;
   fetchManagement: () => Promise<void>;
 }
 
 export const useManagementStore = create<ManagementState>((set) => ({
-  data: [],
+  data: null,
   loading: false,
   error: null,
 
   fetchManagement: async () => {
-    const lang = useLanguageStore.getState().currentLang;
-    axiosInstance.defaults.headers["Accept-Language"] = lang;
-
     set({ loading: true, error: null });
+
     try {
-      const response = await axiosInstance.get("/about_direction/management/");
-      const apiData = response.data;
+      const response = await axiosInstance.get<ManagementBlock[]>(
+        "/movement/leadership/"
+      );
 
-      const transformedData: ManagementPerson[] = apiData.map((person: any) => ({
-        id: person.id,
-        image: person.image,
-        full_name: person.full_name, // используем full_name
-        position: person.position,
-      }));
+      const block = response.data[0];
 
-      set({ data: transformedData, loading: false });
+      const sortedLeaders = (block?.leaders || []).sort(
+        (a, b) => a.order - b.order
+      );
+
+      set({
+        data: {
+          title: block?.title || "",
+          leaders: sortedLeaders,
+        },
+        loading: false,
+      });
     } catch (err: any) {
       console.error("Ошибка при загрузке руководства:", err.message);
-      set({ data: [], loading: false, error: err.message });
+
+      set({
+        data: null,
+        loading: false,
+        error: err.message,
+      });
     }
   },
 }));

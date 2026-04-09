@@ -110,12 +110,7 @@
   .ourMissionSection {
     padding: 40px 16px;
   }
-  .title {
-    font-size: 32px;
-  }
-  .paragraph {
-    font-size: 16px;
-  }
+
 }
 @media (max-width: 1024px) {
   .ourMissionSection {
@@ -128,13 +123,10 @@
   }
 
   .title {
-    font-size: 36px;
     max-width: 100%;
   }
 
   .paragraph {
-    font-size: 18px;
-    line-height: 130%;
     max-width: 100%;
   }
 
@@ -183,17 +175,14 @@
   }
 
   .title {
-    font-size: 24px;
     max-width: 100%;
-    line-height: 1.2;
     margin: 0 auto 12px;
   }
 
   .paragraph {
-    font-size: 12px;
+
     max-width: 100%;
     margin: 0 0 20px;
-    line-height: 1.3;
   }
 
   .divider {

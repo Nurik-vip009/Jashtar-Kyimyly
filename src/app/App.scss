@@ -7,6 +7,7 @@
     flex-grow: 1;
   }
 }
+
 :root {
   --dark-blue-0: rgba(46, 108, 244, 1);
   --dark-blue-700: rgba(109, 153, 248, 1);
@@ -27,7 +28,8 @@
   display: grid;
   margin: auto;
   border-radius: 50%;
-  background: linear-gradient(
+  background:
+    linear-gradient(
         0deg,
         rgba(28, 124, 213, 0.5) 30%,
         #0970ac00 0 70%,

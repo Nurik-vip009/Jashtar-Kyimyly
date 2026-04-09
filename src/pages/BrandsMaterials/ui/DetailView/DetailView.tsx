@@ -28,9 +28,8 @@ function DetailView() {
     description:
       "Однозначно, интерактивные прототипы формируют глобальную экономическую сеть и при этом —  заблокированы в рамках своих собственных рациональных ограничений. Значимость этих проблем настолько очевидна.",
   };
-
   return (
-    <div className="container">
+    <div className="">
       <div className={styles.detailview}>
         <div className={styles.text}>
           <Navpanel
@@ -41,7 +40,7 @@ function DetailView() {
             text3={selectedMaterial.title}
           />
         </div>
-        <div className={styles.view}>
+        <div className={`${styles.view} container`}>
           <div className={styles.titleMobile}>
             <h1>{selectedMaterial.title}</h1>
             <h4>{selectedMaterial.description}</h4>
@@ -65,9 +64,9 @@ function DetailView() {
             </div>
           </div>
         </div>
-        {/* <div className={styles.materials}>
+        <div className={styles.materials}>
           <Materials />
-        </div> */}
+        </div>
       </div>
     </div>
   );

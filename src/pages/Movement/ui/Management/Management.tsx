@@ -1,73 +1,77 @@
-import styles from './Management.module.scss';
-import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Mousewheel, FreeMode } from 'swiper/modules';
-import { MultiContainer, Typography } from '@/shared/ui';
-import Image0 from '@/shared/assets/images/authImage.png';
-import { useManagementStore } from '@/app/store/about-movement/managementPerson';
-import { useLanguageStore } from '@/app/store/languageStore';
+import styles from "./Management.module.scss";
+import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Mousewheel, FreeMode } from "swiper/modules";
+import { MultiContainer, Typography } from "@/shared/ui";
+import Image0 from "@/shared/assets/images/authImage.png";
+import { useManagementStore } from "@/app/store/about-movement/managementPerson";
+import { useLanguageStore } from "@/app/store/languageStore";
 
 //test push
 
-const data = [
-  {
-    id: 1,
-    full_name: 'Иван Иванов',
-    position: 'Глава движения',
-    image: Image0,
-  },
-  {
-    id: 2,
-    full_name: 'Иван Иванов',
-    position: 'Глава движения',
-    image: Image0,
-  },
-  {
-    id: 3,
-    full_name: 'Иван Иванов',
-    position: 'Глава движения',
-    image: Image0,
-  },
-  {
-    id: 4,
-    full_name: 'Иван Иванов',
-    position: 'Глава движения',
-    image: Image0,
-  },
-  {
-    id: 5,
-    full_name: 'Иван Иванов',
-    position: 'Глава движения',
-    image: Image0,
-  },
-  {
-    id: 6,
-    full_name: 'Иван Иванов',
-    position: 'Глава движения',
-    image: Image0,
-  },
-];
+// const data = [
+//   {
+//     id: 1,
+//     full_name: "Иван Иванов",
+//     position: "Глава движения",
+//     image: Image0,
+//   },
+//   {
+//     id: 2,
+//     full_name: "Иван Иванов",
+//     position: "Глава движения",
+//     image: Image0,
+//   },
+//   {
+//     id: 3,
+//     full_name: "Иван Иванов",
+//     position: "Глава движения",
+//     image: Image0,
+//   },
+//   {
+//     id: 4,
+//     full_name: "Иван Иванов",
+//     position: "Глава движения",
+//     image: Image0,
+//   },
+//   {
+//     id: 5,
+//     full_name: "Иван Иванов",
+//     position: "Глава движения",
+//     image: Image0,
+//   },
+//   {
+//     id: 6,
+//     full_name: "Иван Иванов",
+//     position: "Глава движения",
+//     image: Image0,
+//   },
+// ];
 
 export const Management = () => {
-  // const { data, loading, error, fetchManagement } = useManagementStore();
-  // const { currentLang } = useLanguageStore();
-  // const { t } = useTranslation();
+  const { data, loading, error, fetchManagement } = useManagementStore();
+  const { currentLang } = useLanguageStore();
+  const { t } = useTranslation();
 
-  // useEffect(() => {
-  //   fetchManagement();
-  // }, [fetchManagement, currentLang]);
+  useEffect(() => {
+    fetchManagement();
+  }, [fetchManagement, currentLang]);
 
-  // if (loading) return <div className={styles.loading}>Загрузка...</div>;
-  // if (error) return <div className={styles.error}>Ошибка: {error}</div>;
+  if (loading) return <div className={styles.loading}>Загрузка...</div>;
+  if (error) return <div className={styles.error}>Ошибка: {error}</div>;
 
   return (
     <section className={styles.management}>
       <MultiContainer>
         <div className={styles.content}>
-          <Typography variant='title' color='black' className={styles.title}>
-            {/* {t('aboutTheMovement.management')} */}
-            Руководство
+          <Typography
+            variant="title"
+            color="black"
+            weight="600"
+            className={styles.title}
+          >
+            {data?.title}
           </Typography>
 
           <Swiper
@@ -88,7 +92,7 @@ export const Management = () => {
               1200: { slidesPerView: 4, spaceBetween: 24 },
             }}
           >
-            {data.map((person) => (
+            {data?.leaders?.map((person) => (
               <SwiperSlide key={person.id}>
                 <div className={styles.personCard}>
                   <img
@@ -99,15 +103,15 @@ export const Management = () => {
                   <div className={styles.personInfo}>
                     <div className={styles.shadowOverlay}></div>
                     <Typography
-                      variant='desc'
-                      color='white'
+                      variant="desc"
+                      color="white"
                       className={styles.personName}
                     >
                       {person.full_name}
                     </Typography>
                     <Typography
-                      variant='desc'
-                      color='white'
+                      variant="desc"
+                      color="white"
                       className={styles.personPosition}
                     >
                       "{person.position}"
