@@ -4,11 +4,6 @@ import { axiosInstance } from "@/app/api/apiclient";
 interface Advantages {
   id: number;
   text: string;
-  title: string;
-}
-
-interface HomeResponse {
-  about_blocks: Advantages[];
 }
 
 interface AdvantagesState {
@@ -25,15 +20,20 @@ export const useAdvantagesStore = create<AdvantagesState>((set) => ({
 
   fetchAdvantages: async () => {
     set({ loading: true, error: null });
-
     try {
-      const response = await axiosInstance.get<HomeResponse>("/home");
+      const response = await axiosInstance.get("home/advantages/");
+      
+      // трансформация под твой интерфейс
+      const transformedData: Advantages[] = response.data.map((apiData: any) => ({
+        id: apiData.id ?? 1, // если id нет — ставим 1
+        text: apiData.text,
+      }));
 
-      const transformedData = response.data.about_blocks;
+      console.log("Данные advantages:", transformedData);
 
       set({ data: transformedData, loading: false });
     } catch (err: any) {
-      console.error("Ошибка при загрузке:", err.message);
+      console.error("Ошибка при загрузке данных:", err.message);
       set({ data: [], loading: false, error: err.message });
     }
   },

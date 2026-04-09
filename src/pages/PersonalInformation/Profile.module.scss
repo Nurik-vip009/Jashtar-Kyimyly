@@ -8,12 +8,65 @@ $black: #111111;
 $gray-light: #e8e8e8;
 $gray-medium: #a0a0a0;
 
+// Миксины для анимаций
+@mixin fadeInUp($delay: 0s) {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease-out #{$delay} forwards;
+}
+
+@mixin fadeInLeft($delay: 0s) {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: fadeInLeft 0.6s ease-out #{$delay} forwards;
+}
+
+@mixin fadeInRight($delay: 0s) {
+  opacity: 0;
+  transform: translateX(20px);
+  animation: fadeInRight 0.6s ease-out #{$delay} forwards;
+}
+
+// Анимации
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 // Основной контейнер
 .container {
   min-height: 100vh;
   background-color: $light-blue;
   padding: 0;
   position: relative;
+  // overflow-x: auto;
   width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
@@ -29,6 +82,7 @@ $gray-medium: #a0a0a0;
 
 // Хедер
 .header {
+  @include fadeInUp(0.1s);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -67,7 +121,7 @@ $gray-medium: #a0a0a0;
 }
 
 .title {
-  font-family: "Inter", Helvetica;
+  font-family: 'Inter', Helvetica;
   font-weight: 600;
   font-size: 40px;
   color: $black;
@@ -98,7 +152,7 @@ $gray-medium: #a0a0a0;
   border: 1px solid $primary-blue;
   border-radius: 10px;
   color: $primary-blue;
-  font-family: "Segoe UI", Helvetica;
+  font-family: 'Segoe UI', Helvetica;
   font-size: 18px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -163,6 +217,7 @@ $gray-medium: #a0a0a0;
 
 // Сайдбар
 .sidebar {
+  @include fadeInLeft(0.2s);
   width: 312px;
   flex-shrink: 0;
   position: relative;
@@ -218,7 +273,7 @@ $gray-medium: #a0a0a0;
 }
 
 .userName {
-  font-family: "Inter", Helvetica;
+  font-family: 'Inter', Helvetica;
   font-weight: 400;
   font-size: 20px;
   color: $black;
@@ -231,7 +286,7 @@ $gray-medium: #a0a0a0;
 }
 
 .userEmail {
-  font-family: "Inter", Helvetica;
+  font-family: 'Inter', Helvetica;
   font-weight: 400;
   font-size: 14px;
   color: $gray-medium;
@@ -254,7 +309,7 @@ $gray-medium: #a0a0a0;
   color: $white;
   border: none;
   border-radius: 10px;
-  font-family: "Segoe UI", Helvetica;
+  font-family: 'Segoe UI', Helvetica;
   font-size: 18px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -274,44 +329,62 @@ $gray-medium: #a0a0a0;
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 8px;
+  margin: 0 -24px;
 }
 
 .navItem {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 24px;
+  gap: 10px;
+  padding: 16px 24px;
   width: 100%;
-  background-color: transparent;
+  background-color: $white;
   border: none;
-  border-radius: 10px;
   color: $black;
-  font-family: "Inter", Helvetica;
-  font-size: 18px;
+  font-family: 'Inter', Helvetica;
+  font-size: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: rgba(46, 108, 244, 0.1);
-  }
-
-  &.active {
-    background-color: $primary-blue;
-    color: $white;
-
-    &:hover {
-      background-color: rgba(46, 108, 244, 0.9);
-    }
+    background-color: rgba(17, 17, 17, 0.05);
   }
 
   @media (max-width: 480px) {
-    padding: 10px 16px;
+    padding: 12px 20px;
+    font-size: 18px;
+  }
+  &.active{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  // padding: 10px 24px;
+  width: 100%;
+  background-color: $primary-blue;
+  color: $white;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Segoe UI', Helvetica;
+  // font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(46, 108, 244, 0.9);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 480px) {
+    padding: 8px 16px;
     font-size: 16px;
+  }
   }
 }
 
 .contentArea {
+  @include fadeInRight(0.3s);
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -327,18 +400,23 @@ $gray-medium: #a0a0a0;
   }
 }
 
-.projectsContainer {
+.section {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 24px;
+
+  @media (max-width: 768px) {
+    gap: 20px;
+  }
 }
 
 .sectionTitle {
-  font-family: "Inter", Helvetica;
+  font-family: 'Inter', Helvetica;
   font-weight: 500;
   font-size: 32px;
   color: $black;
-  margin: 0 0 24px 0;
+  text-align: center;
+  margin: 0;
 
   @media (max-width: 768px) {
     font-size: 28px;
@@ -349,47 +427,82 @@ $gray-medium: #a0a0a0;
   }
 }
 
-.telegramContainer,
-.applicationsContainer {
-  background-color: $white;
-  border-radius: 20px;
-  padding: 32px;
-  text-align: center;
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  width: 100%;
 
-  p {
-    color: $gray-medium;
-    margin-top: 16px;
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 }
 
-.loaderContainer,
-.errorContainer {
+// Стили для карточек проектов
+.projectCard {
+  @include fadeInUp(0.4s);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  gap: 1rem;
-  text-align: center;
-}
-
-.loader {
-  font-size: 1.2rem;
-  color: $gray-medium;
-}
-
-.retryButton {
-  padding: 0.75rem 1.5rem;
-  background-color: $primary-blue;
-  color: $white;
-  border: none;
-  border-radius: 10px;
+  padding: 16px;
+  height: 191px;
+  border-radius: 20px;
   cursor: pointer;
-  font-size: 1rem;
   transition: all 0.3s ease;
+  animation-delay: calc(var(--index) * 0.1s);
 
   &:hover {
-    background-color: rgba(46, 108, 244, 0.9);
-    transform: translateY(-1px);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  @media (max-width: 768px) {
+    height: 160px;
+    padding: 12px;
+  }
+
+  @media (max-width: 480px) {
+    height: 140px;
+    padding: 10px;
+  }
+}
+
+.availableProject {
+  background-color: $dark-blue;
+
+  &:hover {
+    background-color: rgba(193, 211, 252, 0.8);
+  }
+}
+
+.completedProject {
+  background-color: $green;
+
+  &:hover {
+    background-color: rgba(192, 238, 204, 0.8);
+  }
+}
+
+.projectTitle {
+  font-family: 'Inter', Helvetica;
+  font-weight: 400;
+  font-size: 24px;
+  color: $black;
+  text-align: center;
+  margin: 0;
+  line-height: 1.3;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 18px;
   }
 }
