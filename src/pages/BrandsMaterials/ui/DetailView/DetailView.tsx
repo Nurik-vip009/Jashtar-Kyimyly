@@ -1,25 +1,29 @@
-import React, { useEffect } from "react";
+// src/pages/BrandsMaterials/ui/DetailView/DetailView.tsx
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./DetailView.module.scss";
-import Materials from "../Materials1/Materials";
 import { useDetailStore } from "@/app/store/detail/detailStore";
 import Navpanel from "@/widgets/Navpanel/Navpanel";
 import { useTranslation } from "react-i18next";
 
 function DetailView() {
   const { id } = useParams<{ id: string }>();
-  const { selectedMaterial, fetchMaterialById, loading, error, clearError } =
+  const { selectedMaterial, fetchMaterialById, loading, error } =
     useDetailStore();
   const { t } = useTranslation();
+  const [mainImage, setMainImage] = useState<string>("");
 
   useEffect(() => {
     if (id) {
       fetchMaterialById(Number(id));
     }
-    return () => {
-      clearError(); // Очищаем ошибку при размонтировании
-    };
-  }, [id, fetchMaterialById, clearError]);
+  }, [id, fetchMaterialById]);
+
+  useEffect(() => {
+    if (selectedMaterial) {
+      setMainImage(selectedMaterial.main_image);
+    }
+  }, [selectedMaterial]);
 
   if (loading) {
     return (
@@ -30,7 +34,7 @@ function DetailView() {
             link="/"
             text2={t("brandMaterials.brandMaterials")}
             link2="/main"
-            text3={t("common.loading") || "Загрузка..."}
+            text3="Загрузка..."
           />
         </div>
         <div className="container">
@@ -49,7 +53,7 @@ function DetailView() {
             link="/"
             text2={t("brandMaterials.brandMaterials")}
             link2="/main"
-            text3={t("common.error") || "Ошибка"}
+            text3="Ошибка"
           />
         </div>
         <div className="container">
@@ -68,7 +72,7 @@ function DetailView() {
             link="/"
             text2={t("brandMaterials.brandMaterials")}
             link2="/main"
-            text3={t("common.notFound") || "Товар не найден"}
+            text3="Товар не найден"
           />
         </div>
         <div className="container">
@@ -96,34 +100,25 @@ function DetailView() {
         </div>
         <div className={styles.gallerry}>
           <img
-            src={selectedMaterial.image}
+            src={mainImage}
             alt={selectedMaterial.title}
             onError={(e) => {
               (e.target as HTMLImageElement).src = "/placeholder-image.jpg";
             }}
           />
           <div className={styles.images}>
-            <img
-              src={selectedMaterial.image}
-              alt={selectedMaterial.title}
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = "/placeholder-image.jpg";
-              }}
-            />
-            <img
-              src={selectedMaterial.image}
-              alt={selectedMaterial.title}
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = "/placeholder-image.jpg";
-              }}
-            />
-            <img
-              src={selectedMaterial.image}
-              alt={selectedMaterial.title}
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = "/placeholder-image.jpg";
-              }}
-            />
+            {selectedMaterial.gallery.map((img) => (
+              <img
+                key={img.id}
+                src={img.image}
+                alt={`${selectedMaterial.title} - ${img.order}`}
+                onClick={() => setMainImage(img.image)}
+                className={mainImage === img.image ? styles.active : ""}
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = "/placeholder-image.jpg";
+                }}
+              />
+            ))}
           </div>
         </div>
         <div className={styles.description}>
@@ -136,9 +131,6 @@ function DetailView() {
             <p>{selectedMaterial.price} KGZ</p>
           </div>
         </div>
-      </div>
-      <div className={styles.materials}>
-        <Materials />
       </div>
     </div>
   );

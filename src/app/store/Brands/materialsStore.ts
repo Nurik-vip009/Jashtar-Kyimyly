@@ -8,7 +8,6 @@ export interface Material {
   title: string;
   price: number;
   image: string;
-  description?: string; // Добавлено опциональное поле description
 }
 
 interface MaterialsState {
@@ -26,17 +25,15 @@ export const useMaterialsStore = create<MaterialsState>((set) => ({
   fetchMaterials: async () => {
     set({ loading: true, error: null });
     try {
+      // Список мерча из /home/ (поле merch_list)
       const response = await axiosInstance.get("/home/");
-      // Данные из API находятся в поле merch_list
       const merchList = response.data.merch_list || [];
+
       const mappedMaterials = merchList.map((item: any) => ({
         id: item.id,
         title: item.title,
         image: item.image,
         price: item.price,
-        description:
-          item.description ||
-          "Однозначно, интерактивные прототипы формируют глобальную экономическую сеть и при этом — заблокированы в рамках своих собственных рациональных ограничений. Значимость этих проблем настолько очевидна.",
       }));
       set({ materials: mappedMaterials, loading: false });
     } catch (err) {
