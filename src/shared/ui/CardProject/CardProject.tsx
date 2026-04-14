@@ -9,10 +9,12 @@ export const CardProject = ({ image, title, desc, id }: CardProps) => {
       <div className={scss.ImageWrapper}>
         <img className={scss.image} src={image} alt='card Image' />
       </div>
+
       <div className={scss.mainContent}>
         <Typography variant='card_title' weight='600' color='black'>
           {title}
         </Typography>
+
         <Typography variant='card_title' weight='600' color='black'>
           {desc}
         </Typography>

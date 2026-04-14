@@ -4,5 +4,6 @@ export interface cardProps {
   description: string;
   fullText?: string;
   isOpen: boolean;
+  Course: boolean;
   onClick: () => void;
 }

@@ -1,0 +1,133 @@
+.card {
+  position: relative;
+  background-color: #5d8aff;
+  border-radius: 30px;
+  padding: 30px;
+  color: white;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 180px;
+
+  &_course {
+    min-height: 160px;
+    cursor: pointer;
+  }
+}
+
+.imageWrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 45%;
+  z-index: 1;
+  pointer-events: none;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    -webkit-mask-image: linear-gradient(
+      to left,
+      rgba(0, 0, 0, 1) 60%,
+      rgba(0, 0, 0, 0)
+    );
+    mask-image: linear-gradient(
+      to left,
+      rgba(0, 0, 0, 1) 60%,
+      rgba(0, 0, 0, 0)
+    );
+  }
+}
+
+.card_content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.textContent {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  gap: 15px;
+  margin-bottom: 20px;
+  transition: width 0.3s ease;
+
+  &_open {
+    width: 100%;
+  }
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 33px;
+}
+
+.socials {
+  display: flex;
+  gap: 30px;
+}
+
+.icon {
+  width: 44px;
+  height: 44px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggleButton {
+  background: white;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+  color: black;
+
+  &_course {
+    padding: 12px 28px;
+    font-weight: 500;
+  }
+
+  &_open {
+    padding: 10px;
+    min-width: 44px;
+    justify-content: center;
+  }
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.fullText {
+  margin-top: 20px;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

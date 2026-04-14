@@ -3,4 +3,7 @@ export interface CardProps {
     id:number;
     desc: string;
     image:string;
+    className?: string;
+    ImageWrapperClassName?: string;
+    mainContentClassName?: string;
 }
